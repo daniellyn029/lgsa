@@ -1,0 +1,442 @@
+<!-- Wrapper -->
+<div class="wrapper" ng-controller="accountsController" ng-init="accounts.active();">
+    <spinner name="accountsSpinner" ng-cloak="">
+        <div class="overlay"></div>
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+        <div class="please-wait">Please wait...</div>
+    </spinner>
+  
+    <!-- Header Template-->
+    <div ng-include="headerTemplate"></div>
+    <!-- /.Header Template-->
+  
+    <!-- Left Navigation Template -->
+    <div ng-include="leftNavigationTemplate"></div>
+    <!-- /.Left Navigation Template -->
+   
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                User Account
+                <small>List</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <a>
+                        <i class="fa fa-user"></i>
+                        <span>Accounts</span> 
+                    </a>    
+                </li>
+            </ol>
+        </section>
+        <!-- /.Content Header (Page header) -->
+         <!-- Main Content -->
+        <section class="content">
+            <!-- Continue Codes Here -->
+            <!-- Main Box -->
+            <div class="box box-success">
+                <!-- Box Header -->
+                <div class="box-header with-border">
+                    <h3 class="box-title">A-List</h3>
+                </div>
+                <!-- /.Box Header -->
+                <!-- Box Body -->
+                <div class="box-body">
+                    <!-- Row -->
+                    <div class="row">                             
+                        <div class="col-md-12" ng-init="userAccountList();">
+                            <div class="search-input-wrapper">	  
+                                <div class="btn-toolbar">
+                                </div>  
+                                <!-- Datatables -->
+                                <table id="userAccountList" datatable="" dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance6" class="display compact" style="width:100%"></table>
+                                <!-- /.Datatables -->
+                            </div>    
+                        </div>    
+                    </div>
+                    <!-- /.Row -->
+                </div>
+                <!-- /.Box Body -->
+            </div>
+            <!-- /.Main Box -->
+        </section>
+        <!-- /.Main Content -->
+  
+
+    <!-- Footer Template -->
+    <div ng-include="footerTemplate"></div>
+    <!-- /.Footer Template -->
+
+    <!-- Modal for Add User Accounts -->
+    <div class="modal fade modal-success" data-backdrop="static" id="addAccount" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="addAccount" style="overflow: scroll !important;">
+        <!-- Modal Dialog -->
+        <div class="modal-dialog modal-lg" role="document">
+            <!-- Modal Content -->
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"><i class="fa fa-pencil-square-o fa-xs" aria-hidden="true"></i> Add User Account</h4>
+                </div>
+                <!-- /.Modal Header -->
+                <!-- Modal Body -->
+                <div class="modal-body" style="color:#333 !important;background:#ffffff !important">
+                    <!-- row -->
+                    <div class = "row">
+                        <form name="myForm" id="myform" novalidate>
+                            <!-- Div Content -->
+                            <div class="account-content">
+                                <!--Upload Image-->
+                                <div class="col-md-12">
+                                    <div class="col-md-3"></div>
+                                        <div class="col-md-6">
+                                            <div class="profile-pic" style="padding: 15px;text-align: center;">
+                                                <img class="img-responsive img-thumbnail img-circle" id="add_picFile" ngf-thumbnail="!add_picFile ? add_prof_pic : add_picFile" alt="" style="margin-bottom: 15px;width:120px;height:120px;cursor:pointer">                          
+                                                <input class="form-control" type="file" ngf-select ng-model="add_picFile" id="add_file" name="file" accept="image/*" ng-disabled="isSaving"/>                                               
+                                            </div>
+                                        </div>
+                                    <div class="col-md-3"></div>
+                                </div> 
+                                <!--/.Upload Image-->
+                                <!-- Employee ID -->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <!--Employee ID -->
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="add_employeeid123">Employee ID:<i style="color:#f90000" ng-show="myForm.add_employeeid123.$error.required">*</i></label>
+                                        <input type="text" name="add_employeeid123" ng-model="add_employeeid123" class="form-control" placeholder="Employee ID" ng-disabled="isSaving" oninput="this.value=this.value.replace(/[^0-9]/g,'');" required/>
+                                    </div>
+                                </div>  
+                                <!-- /.Employee ID -->
+                                <!-- First Name -->
+                                <div class ="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="add_firstname">First name:<i style="color:#f90000" ng-show="myForm.add_firstname.$error.required">*</i></label>
+                                        <input type="text" name="add_firstname" ng-model="add_firstname" class="form-control" placeholder="First name" ng-disabled="isSaving" required/>
+                                    </div>
+                                    <!-- /.First Name -->
+                                    <!-- Middle Name -->
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="add_middlename">Middle name:<i style="color:#f90000" ng-show="myForm.add_middlename.$error.required">*</i></label>
+                                        <input type="text" name="add_middlename" ng-model="add_middlename" class="form-control" placeholder="Middle name" ng-disabled="isSaving" required/>
+                                    </div>
+                                    <!-- /.Middle Name -->
+                                </div>
+                                <!-- Last Name / Suffix-->
+                                <div class = "col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="add_lastname">Last name:<i style="color:#f90000" ng-show="myForm.add_lastname.$error.required">*</i></label>
+                                        <input type="text" name="add_lastname" ng-model="add_lastname" class="form-control" placeholder="Last name" ng-disabled="isSaving" required/>
+                                    </div>
+                                    <!-- /.Last Name -->
+                                    <!-- Suffix -->
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="add_suffix">Suffix:</label>
+                                        <select style="width:100%;padding:5px;" class="form-control select2" id="add_suffix" ng-disabled="isSaving" name="add_suffix" select2 ng-model="add_suffix">
+                                            <option value="">-- SELECT --</option>
+                                            <option value="Jr">Jr</option>
+                                            <option value="Sr">Sr</option>
+                                            <option value="II">II</option>
+                                            <option value="III">III</option>
+                                            <option value="IV">IV</option>
+                                        </select>
+                                    </div>
+                                    <!-- /.Suffix -->
+                                </div>
+                                <!--Username/Password-->
+                                <div class = "col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="add_username">Username:<i style="color:#f90000" ng-show="myForm.add_username.$error.required">*</i></label>
+                                        <input type="text" name="add_username" ng-model="add_username" class="form-control" placeholder="Username" ng-disabled="isSaving" required/>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="add_password">Password:<i style="color:#f90000" ng-show="myForm.add_password.$error.required">*</i></label>
+                                        <input type="text" name="add_password" ng-model="add_password" class="form-control" placeholder="Password" ng-disabled="isSaving" required/>
+                                    </div>
+                    
+                                </div>
+                                <!--Address-->
+                                <div class = "col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-12">
+                                        <label class="control-label" for="add_address">Address:<i style="color:#f90000" ng-show="myForm.add_address.$error.required">*</i></label>
+                                        <input type="text" name="add_address" ng-model="add_address" class="form-control" placeholder="Address" ng-disabled="isSaving" required/>
+                                    </div>
+                                </div>
+                                <!--Contact Number/  Gender /Birthdate -->
+                                <div class = "col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-4">
+                                        <label class="control-label" for="add_cp">Contact Number:<i style="color:#f90000" ng-show="myForm.add_lastname.$error.required">*</i></label>
+                                        <input type="text" id="add_cp" name="add_cp" ng-model="add_cp" class="form-control" placeholder="Contact Number" ng-disabled="isSaving" maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g,'');" required/>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="control-label" for="add_gender">Gender:<i style="color:#f90000" ng-show="myForm.add_gender.$error.required">*</i></label>
+                                        <select style="width:100%;padding:5px;" class="form-control select2" ng-disabled="isSaving" name="add_gender" select2 ng-model="add_gender" required >
+                                            <option value="Male">MALE</option>
+                                            <option value="Female">FEMALE</option>
+                                        </select>
+                                    </div>
+                                    <!-- /.Gender -->
+                                    <!-- Birthdate -->
+                                    <div class="col-sm-4">
+                                        <label class="control-label birthdate" for="add_birthdate">Birthdate:<i style="color:#f90000" ng-show="myForm.add_birthdate.$error.required">*</i></label>
+                                        <input type="text" name="add_birthdate" ng-model="add_birthdate" class="form-control" placeholder="Birthdate" readonly="readonly" ng-disabled="isSaving" style="background:#fff;" datepicker required/>
+                                    </div>
+                                    <!-- /.Birthdate -->
+                                </div>
+                                <!--Email Address / Account Role-->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="add_email_address">Email Address:</label>
+                                        <input type="text" id="add_email_address" name="add_email_address" ng-model="add_email_address" class="form-control" placeholder="Email Address" validate-email ng-disabled="isSaving"/>
+                                    </div>
+                                    <!-- Account Role -->
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="add_account_role">Account Role:<i style="color:#f90000" ng-show="myForm.add_account_role.$error.required">*</i></label>
+                                        <select style="width:100%;padding:5px;" class="form-control select2" ng-disabled="isSaving"  select2 name="add_account_role" ng-model="add_account_role" required >
+                                            <option value="Admin">ADMIN</option>
+                                            <option value="Executive Security Director">EXECUTIVE SECURITY DIRECTOR</option>
+                                            <option value="Finance Head">FINANCE HEAD</option>
+                                            <option value="HR">HR</option>
+                                            <option value="Secretary">SECRETARY</option>
+                                        </select>
+                                    </div> 
+                                </div>
+                                <!-- Email Status/Account Status-->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    
+                                    <!-- Email Account Status -->
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="add_email_status">Email Status:{{add_email_status}}<i style="color:#f90000" ng-show="myForm.add_email_status.$error.required">*</i></label>
+                                        <select style="width:100%;padding:5px;" class="form-control select2" ng-disabled="isSaving"  select2 name="add_email_status" ng-model="add_email_status" required >
+                                            <option value="Active">ACTIVE</option>
+                                            <option value="Blocked">BLOCKED</option>
+                                        </select>
+                                    </div>
+                                    <!-- Account Status -->
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="add_account_status">Account Status:<i style="color:#f90000" ng-show="myForm.add_account_status.$error.required">*</i></label>
+                                        <select style="width:100%;padding:5px;" class="form-control select2" ng-disabled="isSaving"  select2 name="add_account_status" ng-model="add_account_status" required >
+                                            <option value="Active">ACTIVE</option>
+                                            <option value="Blocked">BLOCKED</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <!-- /.Div Content -->
+                        </form>
+                    </div>
+                    <!-- row -->
+                </div>
+                <!-- /.Modal Body -->
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-flat btn-danger pull-left" data-dismiss="modal" ng-disabled="isSaving">Close</button>
+                    <button type="submit" class="btn btn-flat btn-primary" ng-click="addUserAccount(add_picFile);">Save</button>
+                </div>
+                <!-- /.Modal Footer -->
+            </div>
+            <!-- /.Modal Content -->
+        </div>
+        <!-- /.Modal Dialog -->
+    </div>
+    <!-- /.Modal for Add User Accounts -->
+
+    <!-- Modal for Edit User Accounts -->
+    <div class="modal fade modal-success" data-backdrop="static" id="editUserAccount" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="editUserAccount" style="overflow: scroll !important;">
+        <!-- Modal Dialog -->
+        <div class="modal-dialog modal-lg" role="document">
+            <!-- Modal Content -->
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" >&times;</button>
+                    <h4 class="modal-title"><i class="fa fa-pencil-square-o fa-xs" aria-hidden="true"></i> Edit User Account </h4>
+                </div>
+                <!-- /.Modal Header -->
+                <!-- Modal Body -->
+                <div class="modal-body" style="color:#333 !important;background:#ffffff !important">
+                    <!-- row -->
+                    <div class = "row">
+                        <form name="editmyForm" id="editmyform" novalidate>
+                            <!-- Div Content -->
+                            <div class="account-content">
+                                <!--Upload Image-->
+                                <div class="col-md-12">
+                                    <div class="col-md-3"></div>
+                                        <div class="col-md-6">
+                                            <div class="profile-pic" style="padding: 15px;text-align: center;">
+                                                <img class="img-responsive img-thumbnail img-circle" id="edit_picFile" ngf-thumbnail="!edit_picFile ? edit_prof_pic : edit_picFile" alt="" style="margin-bottom: 15px;width:120px;height:120px;cursor:pointer">                          
+                                                <input class="form-control" type="file" ngf-select ng-model="edit_picFile" id="edit_file" name="file" accept="image/*" ng-disabled="isSaving"/>                                               
+                                            </div>
+                                        </div>
+                                    <div class="col-md-3"></div>
+                                </div> 
+                                <!--/.Upload Image-->
+                                <!-- Employee ID -->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <!-- Hidden id-->
+                                    <input type = "hidden" ng-model = "edit_id">
+                                    <!-- /.Hidden id-->
+                                    <!--Employee ID -->
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="edit_employeeid123">Employee ID:<i style="color:#f90000" ng-show="editmyForm.edit_employeeid123.$error.required">*</i></label>
+                                        <input type="text" name="edit_employeeid123" ng-model="edit_employeeid123" class="form-control" placeholder="Employee ID" ng-disabled="isSaving" oninput="this.value=this.value.replace(/[^0-9]/g,'');" required/>
+                                    </div>
+                                </div>  
+                                <!-- /.Employee ID -->
+                                <!-- First Name -->
+                                <div class ="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="edit_firstname">First name:<i style="color:#f90000" ng-show="editmyForm.edit_firstname.$error.required">*</i></label>
+                                        <input type="text" name="edit_firstname" ng-model="edit_firstname" class="form-control" placeholder="First name" ng-disabled="isSaving" required/>
+                                    </div>
+                                    <!-- /.First Name -->
+                                    <!-- Middle Name -->
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="edit_middlename">Middle name:<i style="color:#f90000" ng-show="editmyForm.edit_middlename.$error.required">*</i></label>
+                                        <input type="text" name="edit_middlename" ng-model="edit_middlename" class="form-control" placeholder="Middle name" ng-disabled="isSaving" required/>
+                                    </div>
+                                    <!-- /.Middle Name -->
+                                </div>
+                                <!-- Last Name / Suffix-->
+                                <div class = "col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="edit_lastname">Last name:<i style="color:#f90000" ng-show="editmyForm.edit_lastname.$error.required">*</i></label>
+                                        <input type="text" name="edit_lastname" ng-model="edit_lastname" class="form-control" placeholder="Last name" ng-disabled="isSaving" required/>
+                                    </div>
+                                    <!-- /.Last Name -->
+                                    <!-- Suffix -->
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="edit_suffix">Suffix:</label>
+                                        <select style="width:100%;padding:5px;" class="form-control select2" ng-disabled="isSaving" name="edit_suffix" select2 ng-model="edit_suffix">
+                                            <option value="">-- SELECT --</option>
+                                            <option value="Jr">Jr</option>
+                                            <option value="Sr">Sr</option>
+                                            <option value="II">II</option>
+                                            <option value="III">III</option>
+                                            <option value="IV">IV</option>
+                                        </select>
+                                    </div>
+                                    <!-- /.Suffix -->
+                                </div>
+                                <!--Username/Password-->
+                                <div class = "col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="edit_username">Username:<i style="color:#f90000" ng-show="editmyForm.edit_username.$error.required">*</i></label>
+                                        <input type="text" name="edit_username" ng-model="edit_username" class="form-control" placeholder="Username" ng-disabled="isSaving" required/>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="edit_password">Password:<i style="color:#f90000" ng-show="editmyForm.edit_password.$error.required">*</i></label>
+                                        <input type="text" name="edit_password" ng-model="edit_password" class="form-control" placeholder="Password" ng-disabled="isSaving" required/>
+                                    </div>
+                    
+                                </div>
+                                <!--Address-->
+                                <div class = "col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-12">
+                                        <label class="control-label" for="edit_address">Address:<i style="color:#f90000" ng-show="editmyForm.edit_address.$error.required">*</i></label>
+                                        <input type="text" name="edit_address" ng-model="edit_address" class="form-control" placeholder="Address" ng-disabled="isSaving" required/>
+                                    </div>
+                                </div>
+                                <!--Contact Number/ Gender Birthdate -->
+                                <div class = "col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-4">
+                                        <label class="control-label" for="edit_cp">Contact Number:<i style="color:#f90000" ng-show="editmyForm.edit_lastname.$error.required">*</i></label>
+                                        <input type="text" id="edit_cp" name="edit_cp" ng-model="edit_cp" class="form-control" placeholder="Contact Number" ng-disabled="isSaving" maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g,'');" required/>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="control-label" for="edit_gender">Gender:<i style="color:#f90000" ng-show="editmyForm.edit_gender.$error.required">*</i></label>
+                                        <select style="width:100%;padding:5px;" class="form-control select2" ng-disabled="isSaving" name="edit_gender" select2 ng-model="edit_gender" required >
+                                            <option value="Male">MALE</option>
+                                            <option value="Female">FEMALE</option>
+                                        </select>
+                                    </div>
+                                    <!-- /.Gender -->
+                                    <!-- Birthdate -->
+                                    <div class="col-sm-4">
+                                        <label class="control-label birthdate" for="edit_birthdate">Birthdate:<i style="color:#f90000" ng-show="editmyForm.edit_birthdate.$error.required">*</i></label>
+                                        <input type="text" name="edit_birthdate" ng-model="edit_birthdate" class="form-control" placeholder="Birthdate" readonly="readonly" ng-disabled="isSaving" style="background:#fff;" datepicker required/>
+                                    </div>
+                                    <!-- /.Birthdate -->
+                                </div>
+                                <!--Email Address / Account Role-->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="edit_email_address">Email Address:</label>
+                                        <input type="text" id="edit_email_address" name="edit_email_address" ng-model="edit_email_address" class="form-control" placeholder="Email Address" validate-email ng-disabled="isSaving"/>
+                                    </div>
+                                    <!-- Account Role -->
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="edit_account_role">Account Role:<i style="color:#f90000" ng-show="editmyForm.edit_account_role.$error.required">*</i></label>
+                                        <select style="width:100%;padding:5px;" class="form-control select2" ng-disabled="isSaving"  select2 name="add_account_role" ng-model="edit_account_role" required >
+                                            <option value="Admin">ADMIN</option>
+                                            <option value="Executive Security Director">EXECUTIVE SECURITY DIRECTOR</option>
+                                            <option value="Finance Head">FINANCE HEAD</option>
+                                            <option value="HR">HR</option>
+                                            <option value="Secretary">SECRETARY</option>
+                                        </select>
+                                    </div> 
+                                </div>
+
+                                <!--Email Status / Account Status-->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <!-- Email Account Status -->
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="edit_email_status">Email Status:<i style="color:#f90000" ng-show="editmyForm.edit_email_status.$error.required">*</i></label>
+                                        <select style="width:100%;padding:5px;" class="form-control select2" ng-disabled="isSaving"  select2 name="edit_email_status" ng-model="edit_email_status" required >
+                                            <option value="Active">ACTIVE</option>
+                                            <option value="Blocked">BLOCKED</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="edit_account_status">Account Status:<i style="color:#f90000" ng-show="editmyForm.edit_account_status.$error.required">*</i></label>
+                                        <select style="width:100%;padding:5px;" class="form-control select2" ng-disabled="isSaving"  select2 name="edit_account_status" ng-model="edit_account_status" required >
+                                            <option value="Active">ACTIVE</option>
+                                            <option value="Blocked">BLOCKED</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <!-- /.Div Content -->
+                        </form>
+                    </div>
+                    <!-- row -->
+                </div>
+                <!-- /.Modal Body -->
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-flat btn-danger pull-left" data-dismiss="modal" ng-disabled="isSaving">Close</button>
+                    <button type="submit" class="btn btn-flat btn-primary" ng-click="updateUserAccount(edit_picFile);">Update</button>
+                </div>
+                <!-- /.Modal Footer -->
+            </div>
+            <!-- /.Modal Content -->
+        </div>
+        <!-- /.Modal Dialog -->
+    </div>
+    <!-- /.Modal for Edit User Accounts -->
+
+
+
+</div>
+<!-- /.Wrapper -->
+
+
+<!-- CSS -->
+<style rel="stylesheet">
+#userAccountList th {
+    background-color: #4CAF50;
+    font-weight: 600;
+}
+#userAccountList td {
+    font-size: 12px;
+}
+</style>
+<!--/. CSS -->

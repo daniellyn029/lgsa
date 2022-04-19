@@ -1,0 +1,138 @@
+<!-- CSS -->
+<style type="text/css">
+    .wordwrap {
+        white-space: pre-wrap;      /* CSS3 */
+        white-space: -moz-pre-wrap; /* Firefox */
+        white-space: -pre-wrap;     /* Opera <7 */
+        white-space: -o-pre-wrap;   /* Opera 7 */
+        word-wrap: break-word;      /* IE */
+    }    
+    </style>
+    <!-- /.CSS -->
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img ng-src="frontend/assets/images/profile_pic/{{payroll.values.payrollInformation.profile_pic}}" class="img-circle" alt="User Image" onerror="this.src='frontend/assets/images/profile_pic/user-icon.png'">
+                </div>
+                <div class="pull-left info">
+                    <p class="wordwrap">{{payroll.values.payrollInformation.first_name+' '+payroll.values.payrollInformation.last_name | capitalize_first}}</p>
+                    <p style="font-size:11px" class="text-center">{{payroll.values.payrollInformation.account_type | capitalize_first}}</p>
+                </div>
+            </div>
+            <!-- /.Sidebar user panel -->
+            <!-- Sidebar-menu -->
+            <ul class="sidebar-menu" ng-init="activeClass();">
+                <li class="header">MAIN NAVIGATION</li>
+                <li class="treeview" id="dashboard" ng-show="payroll.values.payrollInformation.account_type == 'Admin' || payroll.values.payrollInformation.account_type == 'Executive Security Director' || payroll.values.payrollInformation.account_type == 'Finance Head' || payroll.values.payrollInformation.account_type == 'HR' || payroll.values.payrollInformation.account_type == 'Secretary'">
+                    <!-- Dashboard -->
+                    <a href="#/dashboard">
+                        <i class="fa fa-home"></i><span>Home</span>
+                    </a>
+                    <!-- /.Dashboard -->
+                </li>
+                <li class="treeview" id="guards" ng-show="payroll.values.payrollInformation.account_type == 'Admin' || payroll.values.payrollInformation.account_type == 'Executive Security Director' || payroll.values.payrollInformation.account_type == 'Finance Head' || payroll.values.payrollInformation.account_type == 'HR' || payroll.values.payrollInformation.account_type == 'Secretary'">
+                    <!-- Guards -->
+                    <a href="#/guards">
+                        <i class="fas fa-user-shield"></i><span> 201 File</span>
+                    </a>
+                    <!-- /.Guards -->
+                </li>
+                <li class="treeview" id="timekeeping" ng-show="payroll.values.payrollInformation.account_type == 'Admin' || payroll.values.payrollInformation.account_type == 'Executive Security Director' || payroll.values.payrollInformation.account_type == 'Finance Head' || payroll.values.payrollInformation.account_type == 'HR' || payroll.values.payrollInformation.account_type == 'Secretary' || payroll.values.payrollInformation.account_type == 'Security Inspector'">
+                    <!-- timekeeping -->
+                    <a href="#/timekeeping">
+                        <i class="far fa-clock"></i><span> Timekeeping</span>
+                    </a>
+                    <!-- /.timekeeping -->
+                </li>
+                <li class="treeview" id="clients" ng-show="payroll.values.payrollInformation.account_type == 'Admin' || payroll.values.payrollInformation.account_type == 'Executive Security Director' || payroll.values.payrollInformation.account_type == 'Finance Head' || payroll.values.payrollInformation.account_type == 'Secretary'">
+                    <!-- Clients -->
+                    <a href="#/clients">
+                        <i class="fa fa-building"></i><span>Clients</span>
+                    </a>
+                    <!-- /.Clients -->
+                </li> 
+                <li class="treeview" id="voucher" ng-show="payroll.values.payrollInformation.account_type == 'Admin' || payroll.values.payrollInformation.account_type == 'Executive Security Director' || payroll.values.payrollInformation.account_type == 'Finance Head' || payroll.values.payrollInformation.account_type == 'Secretary'">
+                    <!-- Voucher -->
+                    <a href="#/voucher">
+                        <i class="fas fa-file-invoice"></i><span> Voucher</span>
+                    </a>
+                    <!-- /.Voucher -->
+                </li> 
+                <li class="treeview" id="cashadvance" ng-show="payroll.values.payrollInformation.account_type == 'Admin' || payroll.values.payrollInformation.account_type == 'Executive Security Director' || payroll.values.payrollInformation.account_type == 'Finance Head' || payroll.values.payrollInformation.account_type == 'Secretary'">
+                    <!-- Cash Advance -->
+                    <a href="#/cashadvance">
+                        <i class="fas fa-money-bill-alt"></i><span> Cash Advance</span>
+                    </a>
+                    <!-- /.Cash Advance -->
+                </li> 
+                <li class="treeview" id="collectables" ng-show="payroll.values.payrollInformation.account_type == 'Admin' || payroll.values.payrollInformation.account_type == 'Executive Security Director' || payroll.values.payrollInformation.account_type == 'Finance Head' || payroll.values.payrollInformation.account_type == 'Secretary'">
+                    <!-- Collectables -->
+                    <a href="#/collectables">
+                        <i class="fa fa-copy"></i><span>Collectables</span>
+                    </a>
+                    <!-- /.Collectables -->
+                </li>  
+                <li class="treeview" id="payroll" ng-show="payroll.values.payrollInformation.account_type == 'Admin' || payroll.values.payrollInformation.account_type == 'Executive Security Director'">
+                    <!--Payroll-->
+                    <a href="#/payroll">
+                        <i class="fas fa-money-check"></i><span> Payroll</span>
+                    </a>
+                    <!-- /.Payroll -->
+                </li>
+                <li class="treeview" id="billing" ng-show="payroll.values.payrollInformation.account_type == 'Admin' || payroll.values.payrollInformation.account_type == 'Executive Security Director'|| payroll.values.payrollInformation.account_type == 'Secretary' || payroll.values.payrollInformation.account_type == 'Finance Head'">
+                    <!--Billing-->
+                    <a href="#/billing">
+                        <i class="fas fa-file-invoice-dollar"></i><span> Billing</span>
+                    </a>
+                    <!-- /.Billing -->
+                </li>
+                <li class="treeview" id="receivedcopy" ng-show="payroll.values.payrollInformation.account_type == 'Admin' || payroll.values.payrollInformation.account_type == 'Executive Security Director'|| payroll.values.payrollInformation.account_type == 'Secretary' || payroll.values.payrollInformation.account_type == 'Finance Head'">
+                    <!--receivedcopy-->
+                    <a href="#/receivedcopy">
+                        <i class="fas fa-file-signature"></i><span> Received Copy</span>
+                    </a>
+                    <!-- /.receivedcopy -->
+                </li>      
+                <li class="header" ng-show="payroll.values.payrollInformation.account_type == 'Admin'">SETTINGS</li>
+                <li class="treeview" id="accounts" ng-show="payroll.values.payrollInformation.account_type == 'Admin'">
+                    <!-- Accounts -->
+                    <a href="#/accounts">
+                        <i class="fa fa-users"></i><span>Accounts</span>
+                    </a>
+                    <!-- /.Accounts -->
+                </li>
+                <li id="header-esetting" ng-show="payroll.values.payrollInformation.account_type == 'Admin' || payroll.values.payrollInformation.account_type == 'Executive Security Director' || payroll.values.payrollInformation.account_type == 'Finance Head'">
+                    <!-- List -->
+                    <a href="">
+                        <i class="fa fa-list"></i> <span>List</span><i class="fa fa-angle-left pull-right"></i>       
+                    </a>
+                    <ul id="esetting" class="treeview-menu">
+                        <li id="voucherlist" ng-show="payroll.values.payrollInformation.account_type == 'Admin'  || payroll.values.payrollInformation.account_type == 'Executive Security Director' || payroll.values.payrollInformation.account_type == 'Finance Head'">
+                            <a href="#/voucherlist"><i class="far fa-circle text-blue"></i> Voucher</a>
+                        </li> 
+                        <li id="cashadvancelist" ng-show="payroll.values.payrollInformation.account_type == 'Admin'  || payroll.values.payrollInformation.account_type == 'Executive Security Director' || payroll.values.payrollInformation.account_type == 'Finance Head'">
+                            <a href="#/cashadvancelist"><i class="far fa-circle text-blue"></i> Cash Advance</a>
+                        </li> 
+                        <li id="collectableslist" ng-show="payroll.values.payrollInformation.account_type == 'Admin' || payroll.values.payrollInformation.account_type == 'Executive Security Director' || payroll.values.payrollInformation.account_type == 'Finance Head'">
+                            <a href="#/collectableslist"><i class="far fa-circle text-blue"></i> Collectables</a>
+                        </li> 
+                        <li id="payrolllist" ng-show="payroll.values.payrollInformation.account_type == 'Admin' || payroll.values.payrollInformation.account_type == 'Executive Security Director' || payroll.values.payrollInformation.account_type == 'Finance Head'">
+                            <a href="#/payrolllist"><i class="far fa-circle text-blue"></i> Payroll</a>
+                        </li>
+                        <li id="billinglist" ng-show="payroll.values.payrollInformation.account_type == 'Admin' || payroll.values.payrollInformation.account_type == 'Executive Security Director' || payroll.values.payrollInformation.account_type == 'Finance Head'">
+                            <a href="#/billinglist"><i class="far fa-circle text-blue"></i> Billing</a>
+                        </li>					
+                    </ul>
+                    <!-- /.List -->
+                </li>
+            </ul>
+            <!-- /.Sidebar-menu -->
+        </section>
+        <!-- /.sidebar: style can be found in sidebar.less -->
+    </aside>
+    <!-- /.Left side column. contains the logo and sidebar -->
+    

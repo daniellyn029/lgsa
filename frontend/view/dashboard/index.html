@@ -1,0 +1,120 @@
+<!-- Wrapper -->
+<div class="wrapper" ng-controller="dashboardController" ng-init="dashboard.active();">
+    <spinner name="dashboardSpinner" ng-cloak="">
+        <div class="overlay"></div>
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+        <div class="please-wait">Please wait...</div>
+    </spinner>
+    <!-- Header Template-->
+    <div ng-include="headerTemplate"></div>
+    <!-- /.Header Template-->
+    <!-- Left Navigation Template -->
+    <div ng-include="leftNavigationTemplate"></div>
+    <!-- /.Left Navigation Template -->
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- section -->
+        <section class="content">
+            <!-- container-fluid -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <h3>150</h3>
+                                <p>New Orders</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-bag"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-success">
+                            <div class="inner">
+                                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                                <p>Bounce Rate</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-stats-bars"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-warning">
+                            <div class="inner">
+                                <h3>44</h3>
+                                <p>User Registrations</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-person-add"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-danger">
+                            <div class="inner">
+                                <h3>65</h3>
+                                <p>Unique Visitors</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-pie-graph"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+        </section>
+        <!-- /.section -->
+    </div>
+    <!-- /.Content Wrapper. Contains page content -->
+    <!-- Footer Template -->
+    <div ng-include="footerTemplate"></div>
+    <!-- /.Footer Template -->
+</div>
+<!-- /.Wrapper -->
+
+
+<!-- CSS -->
+<style rel="stylesheet">
+.small-box .icon>i.fa, .small-box .icon>i.fab, .small-box .icon>i.far, .small-box .icon>i.fas, .small-box .icon>i.glyphicon, .small-box .icon>i.ion {
+    font-size: 70px;
+    top: 20px;
+}
+.small-box .icon>i {
+    font-size: 90px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    transition: all .3s linear;
+}
+.bg-info, .bg-info>a {
+    color: #fff!important;
+    background-color: #17a2b8!important;
+}
+.bg-success, .bg-success>a {
+    color: #fff!important;
+    background-color: #28a745!important;
+}   
+.bg-warning, .bg-warning>a {
+    color: #1f2d3d!important;
+    background-color: #ffc107!important;
+}
+.bg-danger, .bg-danger>a {
+    color: #fff!important;
+    background-color: #dc3545!important;
+}
+</style>
+<!-- /.CSS -->

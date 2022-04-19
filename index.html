@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="app">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Expires" content="-1">
+        <title>Lance Gavien Security Agency</title>
+        <link rel="icon" href="frontend/assets/images/ico/favicon.png" sizes="16x16" type="image/png">
+
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <!-- Google Fonts -->
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Archivo:400,500" defer>
+        <!-- Font Awesome Icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+        <!-- IonIcons -->
+        <link rel="stylesheet" href="frontend/dependencies/dist/admin_lite/ionicons.min.css">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        <!-- Theme Style -->
+        <link rel="stylesheet" href="frontend/dependencies/dist/admin_lite/AdminLTE.min.css">
+        <!-- AdminLTE Skins. Choose a skin from the css/skins
+            folder instead of downloading all of them to reduce the load. -->
+        <link rel="stylesheet" href="frontend/dependencies/dist/admin_lite/skins/_all-skins.min.css">
+        <!-- Google Font: Source Sans Pro -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700">  
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="frontend/dependencies/dist/bootstrap/bootstrap.min.css">
+        <!-- JQuery UI -->
+        <link rel="stylesheet" href="frontend/dependencies/dist/admin_lite/jquery-ui.min.css">      
+        <!-- Spinner -->
+        <link rel="stylesheet" href="frontend/dependencies/dist/admin_lite/loading.css">
+        <!-- select2 -->
+        <link rel="stylesheet" href="frontend/dependencies/dist/select2/select2.min.css">
+        <!-- Modal -->
+        <link rel="stylesheet" href="frontend/dependencies/dist/modal/alert.css">
+        <!-- Spinner while access in URL -->
+        <link rel="stylesheet" href="frontend/dependencies/dist/spinner/url-spinner.css">
+        <!-- Fixed footer -->  
+        <link rel="stylesheet" href="frontend/dependencies/dist/fixed_footer/footer.css">
+        <!-- Data-tables Angular 
+        <link rel="stylesheet" href="frontend/dependencies/dist/data-tables/angular/angular-datatables.css"> -->
+        <!-- Data-tables Responsive -->
+        <link rel="stylesheet" href="frontend/dependencies/dist/data-tables/responsive/responsive.dataTables.min.css">
+        <!-- Data-tables jQuery -->
+        <link rel="stylesheet" href="frontend/dependencies/dist/data-tables/jquery/jquery.dataTables.min.css">
+        <!-- Data-tables Buttons Angular -->
+        <link rel="stylesheet" href="frontend/dependencies/dist/data-tables/buttons/buttons.dataTables.min.css">
+        <!-- DateTime Picker -->
+        <link rel="stylesheet" href="frontend/dependencies/dist/datetimepicker/bootstrap-material-datetimepicker.css">
+        <link rel="stylesheet" href="frontend/dependencies/dist/datetimepicker/bootstrap-datepicker.css">
+        <!-- ngPrint -->
+        <link rel="stylesheet" href="frontend/dependencies/dist/ngPrint/ngPrint.css">
+        <!-- Custom Style -->
+        <link rel="stylesheet" href="frontend/dependencies/dist/admin_lite/custom-style.css">
+    </head>    
+    <body style="background:#ecf0f5" ng-class="{ 'hold-transition login-page' : bodyChange!=true, 'hold-transition skin-blue sidebar-mini fixed' : bodyChange!=false }">
+        <!-- Spinner loading -->
+        <div class="overlay" style="background-color:transparent !important;z-index:0 !important;height:0 !important; width: 0 !important;"></div>
+        <div id="nb-global-spinner" class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+        <!-- Spinner loading
+        <div id="nb-global-spinner" class="spinner_url">
+            <div class="blob blob-0"></div>
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+            <div class="blob blob-4"></div>
+            <div class="blob blob-5"></div>
+        </div> -->
+        <!-- View Login Page -->
+        <ng-view></ng-view>
+        <!-- Modal -->
+        <div class="modal fade modal-noti" id="dymodal" data-backdrop="static" role="dialog" ng-show="dymodalstat" style="background: rgba(0, 0, 0, 0.8);" >
+            <div class="modal-dialog marginTop">
+                <div class="modal-content">
+                    <div class="modal-header {{dymodalstyle}}">
+                        <h4 class="modal-title"><i class="{{dymodalicon}}"></i> {{dymodaltitle}} </h4>
+                    </div>
+                    <div class="modal-body">
+                        <p ng-bind-html="dymodalmsg" class="{{dymodalclass}}"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-flat btn-danger" data-target="#dymodal" data-toggle="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>    
+        <!-- jQuery -->
+        <script type="text/javascript" src="frontend/dependencies/bower_components/plugins/jQuery/jquery-3.4.1.min.js"></script>
+        <!-- Angular Dependencies -->
+        <script type="text/javascript" src="frontend/dependencies/angular/angular.min.js"></script>
+        <script type="text/javascript" src="frontend/dependencies/angular/angular-touch.min.js"></script>
+        <script type="text/javascript" src="frontend/dependencies/angular/ui-bootstrap-tpls-2.5.0.min.js"></script>
+        <script type="text/javascript" src="frontend/dependencies/angular/angular-cookies.min.js"></script>
+        <script type="text/javascript" src="frontend/dependencies/angular/angular-resource.min.js"></script>
+        <script type="text/javascript" src="frontend/dependencies/angular/angular-route.min.js"></script>
+        <script type="text/javascript" src="frontend/dependencies/angular/angular-sanitize.min.js"></script>
+        <!-- Angular Pagination -->
+        <script type="text/javascript" src="frontend/dependencies/angular/angular-dirPagination/dirPagination.js"></script>
+        <!-- Angular Upload -->
+        <script type="text/javascript" src="frontend/dependencies/angular/angular-file-upload/angular-file-upload.min.js"></script>
+        <script type="text/javascript" src="frontend/dependencies/angular/angular-file-upload/ng-file-upload.js"></script>
+        <script type="text/javascript" src="frontend/dependencies/angular/angular-file-upload/ng-file-upload-shim.js"></script> 
+        <!-- Moment -->
+        <script type="text/javascript" src="frontend/dependencies/angular/moment.js"></script>
+        <!-- ngPrint -->
+        <script type="text/javascript" src="frontend/dependencies/angular/ngPrint.min.js"></script>
+        <!-- AngularJS Material -->
+        <script type="text/javascript" src="frontend/dependencies/angular/svg-assets-cache.js"></script>
+        <script type="text/javascript" src="frontend/dependencies/angular/angular-material.js"></script>
+        <!-- Angualr Data-tables jQuery -->
+        <script type="text/javascript" src="frontend/dependencies/bower_components/plugins/data-tables/jquery/jquery.dataTables.min.js"></script>
+        <!-- Angular Data-tables -->
+        <script type="text/javascript" src="frontend/dependencies/angular/angular-data-tables/angular-datatables.light-columnfilter.js"></script>
+        <script type="text/javascript" src="frontend/dependencies/angular/angular-data-tables/dataTables.lightColumnFilter.min.js"></script>
+        <script type="text/javascript" src="frontend/dependencies/angular/angular-data-tables/angular-datatables.js"></script>
+        <script type="text/javascript" src="frontend/dependencies/angular/angular-data-tables/angular-datatables.directive.js"></script>
+        <script type="text/javascript" src="frontend/dependencies/angular/angular-data-tables/angular-datatables.factory.js"></script>
+        <script type="text/javascript" src="frontend/dependencies/angular/angular-data-tables/angular-datatables.instances.js"></script>
+        <script type="text/javascript" src="frontend/dependencies/angular/angular-data-tables/angular-datatables.options.js"></script>
+        <script type="text/javascript" src="frontend/dependencies/angular/angular-data-tables/angular-datatables.renderer.js"></script>
+        <script type="text/javascript" src="frontend/dependencies/angular/angular-data-tables/angular-datatables.util.js"></script>
+        <!-- Angular Data-tables Responsive -->
+        <script type="text/javascript" src="frontend/dependencies/angular/angular-data-tables/responsive/dataTables.responsive.min.js"></script>
+        <!-- Data-tables Buttons -->
+        <script type="text/javascript" src="frontend/dependencies/bower_components/plugins/data-tables/buttons/dataTables.buttons.min.js"></script>
+        <!-- Angular Data-tables Buttons -->  
+        <script type="text/javascript" src="frontend/dependencies/angular/angular-data-tables/angular-datatables.buttons.min.js"></script>
+        <!-- Popper -->
+        <script type="text/javascript" src="frontend/dependencies/bower_components/plugins/popper/popper.min.js"></script>
+        <!-- Bootstrap -->
+        <script type="text/javascript" src="frontend/dependencies/bower_components/plugins/bootstrap/bootstrap.min.js"></script>
+        <!-- jQuery UI -->
+        <script type="text/javascript" src="frontend/dependencies/bower_components/plugins/jQueryUI/jquery-ui.min.js"></script>
+        <!-- AdminLTE -->
+        <script type="text/javascript" src="frontend/dependencies/bower_components/admin_lite/adminlte.min.js"></script>
+        <!-- slimScroll -->
+        <script type="text/javascript" src="frontend/dependencies/bower_components/plugins/slimScroll/slimscroll.min.js"></script>
+        <!-- Spinner while access in URL -->
+        <script type="text/javascript" src="frontend/dependencies/bower_components/spinner/url-spinner.js"></script>
+        <!-- select2 -->
+        <script type="text/javascript" src="frontend/dependencies/bower_components/plugins/select2/select2.min.js"></script>
+        <!-- DateTime Picker -->
+        <script type="text/javascript" src="frontend/dependencies/bower_components/plugins/datetimepicker/bootstrap-material-datetimepicker.js"></script>
+        <script type="text/javascript" src="frontend/dependencies/bower_components/plugins/datetimepicker/bootstrap-datepicker.min.js"></script>
+        <!-- Export to Excel -->
+        <script type="text/javascript" src="frontend/dependencies/bower_components/plugins/export/bootstrap-table.js"></script>
+        <script type="text/javascript" src="frontend/dependencies/bower_components/plugins/export/bootstrap-table-export.js"></script>
+        <!-- Application Scripts -->
+        <script type="text/javascript" src="frontend/app/module.js?v=lgsa04192020"></script>
+        <script type="text/javascript" src="frontend/app/auth.js?v=lgsa04192020"></script>
+        <script type="text/javascript" src="frontend/app/global.js?v=lgsa04192020"></script>    
+        <script type="text/javascript" src="frontend/app/routes.js?v=lgsa04192020"></script>
+        <!-- Login Controller -->
+        <script type="text/javascript" src="frontend/controller/login/loginController.js?v=lgsa04192020"></script>
+        <!-- Dashboard Controller -->
+        <script type="text/javascript" src="frontend/controller/dashboard/dashboardController.js?v=lgsa04192020"></script>
+        <!-- Guards Controller -->
+        <script type="text/javascript" src="frontend/controller/guards/guardsController.js?v=lgsa04192020"></script>
+        <!-- Timekeeping Controller -->
+        <script type="text/javascript" src="frontend/controller/timekeeping/timekeepingController.js?v=lgsa04192020"></script>
+        <!-- Clients Controller -->
+        <script type="text/javascript" src="frontend/controller/clients/clientsController.js?v=lgsa04192020"></script>
+        <!-- Voucher Controller -->
+        <script type="text/javascript" src="frontend/controller/voucher/voucherController.js?v=lgsa04192020"></script>
+        <!-- Cash Advance Controller -->
+        <script type="text/javascript" src="frontend/controller/cashadvance/cashadvanceController.js?v=lgsa04192020"></script>
+        <!-- Collectables Controller -->
+        <script type="text/javascript" src="frontend/controller/collectables/collectablesController.js?v=lgsa04192020"></script>
+        <!-- Payroll Controller -->
+        <script type="text/javascript" src="frontend/controller/payroll/payrollController.js?v=lgsa04192020"></script>
+        <!-- Billing Controller -->
+        <script type="text/javascript" src="frontend/controller/billing/billingController.js?v=lgsa04192020"></script>
+        <!-- Received Copy Controller -->
+        <script type="text/javascript" src="frontend/controller/receivedcopy/receivedcopyController.js?v=lgsa04192020"></script>
+        <!-- Accounts Controller -->
+        <script type="text/javascript" src="frontend/controller/accounts/accountsController.js?v=lgsa04192020"></script>
+        <!-- Voucher List Controller -->
+        <script type="text/javascript" src="frontend/controller/list/voucherlistController.js?v=lgsa04192020"></script>
+        <!-- Cash Advance List Controller -->
+        <script type="text/javascript" src="frontend/controller/list/cashadvancelistController.js?v=lgsa04192020"></script>
+        <!-- Collectables List Controller -->
+        <script type="text/javascript" src="frontend/controller/list/collectableslistController.js?v=lgsa04192020"></script>
+        <!-- Payroll List Controller -->
+        <script type="text/javascript" src="frontend/controller/list/payrolllistController.js?v=lgsa04192020"></script>
+        <!-- Billing List Controller -->
+        <script type="text/javascript" src="frontend/controller/list/billinglistController.js?v=lgsa04192020"></script>
+        <!-- 403 Controller -->
+        <script type="text/javascript" src="frontend/controller/403/403.js?v=lgsa04192020"></script>
+        <!-- 404 Controller -->
+        <script type="text/javascript" src="frontend/controller/404/404.js?v=lgsa04192020"></script>
+    </body>
+</html>
+
+<!-- javascript -->
+<script type="text/javascript">
+$(document).ready( function () {
+    $.ajaxPrefilter(function( options, original_Options, jqXHR ) {
+        options.async = true;
+    });
+});
+</script>
+<!-- /.javascript -->

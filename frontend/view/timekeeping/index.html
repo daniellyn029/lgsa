@@ -1,0 +1,328 @@
+<!-- Wrapper -->
+<div class="wrapper" ng-controller="timekeepingController" ng-init="timekeeping.active();">
+    <spinner name="timekeepingSpinner" ng-cloak="">
+        <div class="overlay"></div>
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+        <div class="please-wait">Please wait...</div>
+    </spinner>
+    <!-- Header Template-->
+    <div ng-include="headerTemplate"></div>
+    <!-- /.Header Template-->
+    <!-- Left Navigation Template -->
+    <div ng-include="leftNavigationTemplate"></div>
+    <!-- /.Left Navigation Template -->
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Timekeeping
+                <small>List</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <a>
+                        <i class="fa fa-clock-o"></i>
+                        <span>Timekeeping</span> 
+                    </a>    
+                </li>
+            </ol>
+        </section>
+        <!-- /.Content Header (Page header) -->
+        <!-- Main Content -->
+        <section class="content">
+            <!-- Continue Codes Here -->
+            <!-- Main Box -->
+            <div class="box box-success">
+                <!-- Box Header -->
+                <div class="box-header with-border">
+                    <h3 class="box-title">T-List</h3>
+                </div>
+                <!-- /.Box Header -->
+                <!-- Box Body -->
+                <div class="box-body">
+                    <!-- Row -->
+                    <div class="row">                             
+                        <div class="col-md-12" ng-init="timekeeping123();">
+                            <div class="search-input-wrapper">	  
+                                <div class="btn-toolbar">
+                                </div>  
+                                <!-- Datatables -->
+                                <table id="timekeeping" datatable="" dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance13" class="display compact" style="width:100%"></table>
+                                <!-- /.Datatables -->
+                            </div>    
+                        </div>    
+                    </div>
+                    <!-- /.Row -->
+                </div>
+                <!-- /.Box Body -->
+            </div>
+            <!-- /.Main Box -->
+        </section>
+        <!-- /.Main Content -->
+    </div>
+    <!-- /.Content Wrapper. Contains page content -->
+    <!-- Footer Template -->
+    <div ng-include="footerTemplate"></div>
+    <!-- /.Footer Template -->
+
+    <!-- Add Timekeeping -->
+    <div class="modal fade modal-success" data-backdrop="static" id="addTimekeeping" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="addTimekeeping" style="overflow: scroll !important;">
+        <!-- Modal Dialog -->
+        <div class="modal-dialog modal-lg" role="document">
+            <!-- Modal Content -->
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"><i class="fa fa-pencil-square-o fa-xs"></i> Add Timekeeping </h4>
+                </div>
+                <!-- /.Modal Header -->
+                <!-- Modal Body -->
+                <div class="modal-body" style="color:#333 !important;background: #ffffff !important">
+                    <!-- Row -->
+                    <div class="row">
+                        <!-- Form -->
+                        <form name="timekeepingForm" id="timekeepingForm" novalidate>
+                            <div class="col-md-12" style="margin-top:10px">
+                                <!-- Establishment-->
+                                <div class="col-md-6" style="margin-bottom:10px;">
+                                    <label  class="control-label" for="add_establishment">Establishment:</label><br/>              
+                                    <select class="js-data-example-ajax form-control serverside_client" style="width:100%;padding:5px;" data-placeholder="Establishment" ng-disabled="isSaving" id="entry_establishment_text" select2 name="establishment" ng-model="entry.establishment" ng-disabled="isSaving" required/> 
+                                    </select>
+                                </div>
+                                <!-- /.Establishment -->
+                                <!-- /.Period Covered From -->
+                                <div class="col-md-3">
+                                    <label class="control-label" for="">Period Covered From:</label>
+                                    <input type="text" name="period_covered_from" ng-model="entry.period_covered_from" class="form-control" placeholder="Period Covered From" readonly="readonly" ng-disabled="isSaving" style="background:#fff;" datepicker required/>
+                                </div>
+                                <!-- /.Period Covered From -->   
+                                <!-- /.Period Covered To -->
+                                <div class="col-md-3">
+                                    <label class="control-label" for="period_covered_to">Period Covered To:</label>
+                                    <input type="text" name="period_covered_to" ng-model="entry.period_covered_to" class="form-control" placeholder="Period Covered To" readonly="readonly" ng-disabled="isSaving" style="background:#fff;" datepicker required/>
+                                </div>
+                                <!-- /.Period Covered To -->                                      
+                            </div>
+
+                            <div class="col-md-12 table-responsive item_tk" style="margin-top:10px;">
+                                <div class ="cold-md-12">
+                                    <div class="col-md-6" style = "padding-bottom:1%;">
+                                        <label  class="control-label" for="employee_name">Employee Name:</label><br/>              
+                                        <select class="js-data-example-ajax form-control serverside_employee" style="width:100%;padding:5px;" data-placeholder="Employee Name" ng-disabled="isSaving" name="employee_name" id="employee_name_text" select2 ng-model="entry.tk.employee_id[0]" ng-disabled="isSaving" required/> 
+                                        </select>
+                                    </div>
+                                </div>
+                                <table class="table table-bordered" style="text-align:center;">
+                                    <tr>
+                                        <td>Day1 
+                                            <input type="text" ng-model="entry.tk.day_one[0]" class="form-control input_type" number-float step="0.01" name="day_one" id="day_one" ng-disabled="isSaving"/>
+                                        </td>
+                                        <td>Day 2
+                                            <input type="text" ng-model="entry.tk.day_two[0]" class="form-control input_type" number-float step="0.01" name="day_two" id="day_two" ng-disabled="isSaving"/>
+                                        </td>
+                                        <td>Day 3
+                                            <input type="text" ng-model="entry.tk.day_three[0]" class="form-control input_type" number-float step="0.01" name="day_three" id="day_three" ng-disabled="isSaving"/>
+                                        </td>
+                                        <td>Day 4
+                                            <input type="text" ng-model="entry.tk.day_four[0]" class="form-control input_type" number-float step="0.01" name="day_four" id="day_four" ng-disabled="isSaving"/>
+                                        </td>
+                                        <td>Day 5
+                                            <input type="text" ng-model="entry.tk.day_five[0]" class="form-control input_type" number-float step="0.01" name="day_five" id="day_five" ng-disabled="isSaving"/>
+                                        </td>
+                                        <td>Day 6
+                                            <input type="text" ng-model="entry.tk.day_six[0]" class="form-control input_type" number-float step="0.01" name="day_six" id="day_six"  ng-disabled="isSaving"/>
+                                        </td>
+                                        <td>Day 7
+                                            <input type="text" ng-model="entry.tk.day_seven[0]" class="form-control input_type" number-float step="0.01" name="day_seven" id="day_seven"  ng-disabled="isSaving"/>
+                                        </td>
+                                        <td>Day 8
+                                            <input type="text" ng-model="entry.tk.day_eight[0]" class="form-control input_type" number-float step="0.01" name="day_eight" id="day_eight"  ng-disabled="isSaving"/>
+                                        </td>
+                                        <td>Day 9 
+                                            <input type="text" ng-model="entry.tk.day_nine[0]" class="form-control input_type" number-float step="0.01" name="day_nine" id="day_nine"  ng-disabled="isSaving"/>
+                                        </td>
+                                        <td>Day 10 
+                                            <input type="text" ng-model="entry.tk.day_ten[0]" class="form-control input_type" number-float step="0.01" name="day_ten" id="day_ten"  ng-disabled="isSaving"/>
+                                        </td>
+                                        <td>Day 11 
+                                            <input type="text" ng-model="entry.tk.day_eleven[0]" class="form-control input_type" number-float step="0.01" name="day_eleven" id="day_eleven"  ng-disabled="isSaving"/>
+                                        </td>
+                                        <td>Day 12 
+                                            <input type="text" ng-model="entry.tk.day_twelve[0]" class="form-control input_type" number-float step="0.01" name="day_twelve" id="day_twelve"  ng-disabled="isSaving"/>
+                                        </td>
+                                        <td>Day 13 
+                                            <input type="text" ng-model="entry.tk.day_thirteen[0]" class="form-control input_type" number-float step="0.01" name="day_thirteen" id="day_thirteen" ng-disabled="isSaving"/>
+                                        </td>
+                                        <td>Day 14 
+                                            <input type="text" ng-model="entry.tk.day_fourteen[0]" class="form-control input_type" number-float step="0.01" name="day_fourteen" id="day_fourteen" ng-disabled="isSaving"/>
+                                        </td>
+                                        <td>Day 15 
+                                            <input type="text" ng-model="entry.tk.day_fifteen[0]" class="form-control input_type" number-float step="0.01" name="day_fifteen" id="day_fifteen"  ng-disabled="isSaving"/>
+                                        </td>
+                                        <td></td>
+                                        <td style="font-size:9px">Overtime
+                                            <input type="text" ng-model="entry.tk.first_row_overtime[0]" class="form-control input_type1" number-float step="0.01" name="first_row_overtime" id="first_row_overtime"  ng-disabled="isSaving"/>
+                                        </td>
+                                        <td style="font-size:9px">Hours
+                                            <input type="text" ng-model="entry.tk.first_row_hours[0]" class="form-control input_type1" number-float step="0.01" name="first_row_hours" id="first_row_hours"  ng-disabled="isSaving"/>
+                                        </td>
+                                        <td style="font-size:8px">No. Of Days
+                                            <input type="text" ng-model="entry.tk.first_row_no_of_days[0]" class="form-control input_type1" number-float step="0.01" name="first_row_no_of_days" id="first_row_no_of_days" ng-disabled="isSaving"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Day 16
+                                            <input type="text" ng-model="entry.tk.day_sixteen[0]" class="form-control input_type" number-float step="0.01" name="day_sixteen" id="day_sixteen"  ng-disabled="isSaving"/>
+                                        </td>
+                                        <td>Day 17
+                                            <input type="text" ng-model="entry.tk.day_seventeen[0]" class="form-control input_type" number-float step="0.01" name="day_seventeen" id="day_seventeen"  ng-disabled="isSaving"/>
+                                        </td>
+                                        <td>Day 18
+                                            <input type="text" ng-model="entry.tk.day_eighteen[0]" class="form-control input_type" number-float step="0.01" name="day_eighteen" id="day_eighteen"  ng-disabled="isSaving"/>
+                                        </td>
+                                        <td>Day 19
+                                            <input type="text" ng-model="entry.tk.day_nineteen[0]" class="form-control input_type" number-float step="0.01"  name="day_nineteen" id="day_nineteen"  ng-disabled="isSaving"/>
+                                        </td>
+                                        <td>Day 20
+                                            <input type="text" ng-model="entry.tk.day_twenty[0]" class="form-control input_type" number-float step="0.01" name="day_twenty" id="day_twenty"  ng-disabled="isSaving"/>
+                                        </td>
+                                        <td>Day 21
+                                            <input type="text" ng-model="entry.tk.day_twenty_one[0]" class="form-control input_type" number-float step="0.01" name="day_twenty_one" id="day_twenty_one"  ng-disabled="isSaving"/>
+                                        </td>
+                                        <td>Day 22
+                                            <input type="text" ng-model="entry.tk.day_twenty_two[0]" class="form-control input_type" number-float step="0.01" name="day_twenty_two" id="day_twenty_two"  ng-disabled="isSaving"/>
+                                        </td>
+                                        <td>Day 23
+                                            <input type="text" ng-model="entry.tk.day_twenty_three[0]" class="form-control input_type" number-float step="0.01" name="day_twenty_three" id="day_twenty_three"  ng-disabled="isSaving"/>
+                                        </td>
+                                        <td>Day 24
+                                            <input type="text" ng-model="entry.tk.day_twenty_four[0]" class="form-control input_type" number-float step="0.01" name="day_twenty_four" id="day_twenty_four"  ng-disabled="isSaving"/>
+                                        </td>
+                                        <td>Day 25
+                                            <input type="text" ng-model="entry.tk.day_twenty_five[0]" class="form-control input_type" number-float step="0.01" name="day_twenty_five" id="day_twenty_five"  ng-disabled="isSaving"/>
+                                        </td>
+                                        <td>Day 26
+                                            <input type="text" ng-model="entry.tk.day_twenty_six[0]" class="form-control input_type" number-float step="0.01" name="day_twenty_six" id="day_twenty_six"  ng-disabled="isSaving"/>
+                                        </td>
+                                        <td>Day 27
+                                            <input type="text" ng-model="entry.tk.day_twenty_seven[0]" class="form-control input_type" number-float step="0.01" name="day_twenty_seven" id="day_twenty_seven"  ng-disabled="isSaving"/>
+                                        </td>
+                                        <td>Day 28
+                                            <input type="text" ng-model="entry.tk.day_twenty_eight[0]" class="form-control input_type" number-float step="0.01" name="day_twenty_eight" id="day_twenty_eight"  ng-disabled="isSaving"/>
+                                        </td>
+                                        <td>Day 29
+                                            <input type="text" ng-model="entry.tk.day_twenty_nine[0]" class="form-control input_type" number-float step="0.01" name="day_twenty_nine" id="day_twenty_nine"  ng-disabled="isSaving"/>
+                                        </td>
+                                        <td>Day 30
+                                            <input type="text" ng-model="entry.tk.day_thirty[0]" class="form-control input_type" number-float step="0.01" name="day_thirty" id="day_thirty"  ng-disabled="isSaving"/>
+                                        </td>
+                                        <td>Day 31
+                                            <input type="text" ng-model="entry.tk.day_thirty_one[0]" class="form-control input_type" number-float step="0.01" name="day_thirty_one" id="day_thirty_one"  ng-disabled="isSaving"/>
+                                        </td>
+                                        <td style="font-size:9px">Overtime
+                                            <input type="text" ng-model="entry.tk.day_overtime2[0]" class="form-control input_type1" number-float step="0.01" name="day_overtime2" id="day_overtime2"  ng-disabled="isSaving"/>
+                                        </td>
+                                        <td style="font-size:9px">Hours
+                                            <input type="text" ng-model="entry.tk.second_row_hours[0]" class="form-control input_type1" number-float step="0.01" name="second_row_hours" id="second_row_hours"  ng-disabled="isSaving"/>
+                                        </td>
+                                        <td style="font-size:8px">No. Of Days
+                                            <input type="text" ng-model="entry.tk.second_row_days[0]" class="form-control input_type1" number-float step="0.01" name="second_row_days" id="second_row_days"  ng-disabled="isSaving"/>
+                                        </td>
+                                    </tr>
+                                </table> 
+                                <div class="col-md-12" style = "padding-bottom:1%;">
+                                    <table>
+                                        <tr style = "padding-bottom:1%;">
+                                            <td style="padding-right:20px">
+                                                <b style="font-size:13px;">Total Overtime: </b>
+                                            </td>
+                                            <td style="padding-bottom:5px">
+                                                <input type="text" ng-model="entry.tk.total_overtime[0]" name="total_overtime" id="total_overtime" class="form-control input_type2" placeholder="Overtime">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding-right:20px">
+                                                    <b style="font-size:13px;">Total Work Hours: </b>
+                                            </td>
+                                            <td style="padding-bottom:5px">
+                                                <input type="text" ng-model="entry.tk.total_work_hours[0]" name="total_work_hours" id="total_work_hours" class="form-control input_type2" placeholder="Work Hours">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding-right:20px">
+                                                    <b style="font-size:13px;">Total No. Of Days: </b>
+                                            </td>
+                                            <td>
+                                                <input type="text" ng-model="entry.tk.total_no_days[0]" name="total_no_days" id="total_no_days" class="form-control input_type2" placeholder="No. of Days" >
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>   
+                            </div>
+                            <div class="col-md-12" id="entrybutton-tk">
+                                <label class="control-label" for="add_another_employee">&nbsp;</label><br/>              
+                                <button type="button" addtk class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Add Employee</button>
+                            </div>
+                        </form>
+                        <!-- /.Form -->
+                    </div>
+                    <!-- /.Row -->
+                </div>
+                <!-- /.Modal Body -->
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-flat btn-danger pull-left" ng-disabled="isSaving" data-dismiss="modal" data-toggle="modal">Close</button>
+                    <button type="submit" class="btn btn-flat btn-primary" ng-disabled="isSaving" ng-click="addTimeKeeping();">Save</button>
+                </div>
+                <!-- /.Modal Footer --> 
+            </div>
+            <!-- /.Modal Content -->
+        </div>
+        <!-- /.Modal Dialog -->
+    </div>
+    <!-- /.Add Timekeeping-->
+
+
+
+</div>
+<!-- /.Wrapper -->
+
+
+<!-- CSS -->
+<style rel="stylesheet">
+#timekeeping th {
+    background-color: #4CAF50;
+    font-weight: 600;
+}
+#timekeeping td {
+    font-size: 12px;
+}
+.input_type {
+    height: 20px !important;
+    width: 45px !important;
+}
+.input_type1 {
+    height: 20px !important;
+    width: 60px !important;
+}
+.input_type2 {
+    height: 30px !important;
+    width: 130px !important;
+}
+.modal-xl {
+    width: 100%;
+    padding-right: 17px;
+    padding-left: 13px;
+    display: block;
+}
+</style>
+<!-- /.CSS -->
+
+
+<!-- Javascript src -->
+<script type="text/javascript" src="frontend/dependencies/bower_components/function/serverSideDropdown.js"></script>
+<!-- /.Javascript src -->

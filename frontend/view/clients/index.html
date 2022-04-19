@@ -1,0 +1,756 @@
+<!-- Wrapper -->
+<div class="wrapper" ng-controller="clientsController" ng-init="clients.active();">
+    <spinner name="clientsSpinner" ng-cloak="">
+        <div class="overlay"></div>
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+        <div class="please-wait">Please wait...</div>
+    </spinner>
+    <!-- Header Template-->
+    <div ng-include="headerTemplate"></div>
+    <!-- /.Header Template-->
+    <!-- Left Navigation Template -->
+    <div ng-include="leftNavigationTemplate"></div>
+    <!-- /.Left Navigation Template -->
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Clients
+                <small>List</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <a>
+                        <i class="fa fa-building"></i>
+                        <span>Clients</span> 
+                    </a>    
+                </li>
+            </ol>
+        </section>
+        <!-- /.Content Header (Page header) -->
+        <!-- Main Content -->
+        <section class="content">
+            <!-- Continue Codes Here -->
+            <!-- Main Box -->
+            <div class="box box-success">
+                <!-- Box Header -->
+                <div class="box-header with-border">
+                    <h3 class="box-title">C-List</h3>
+                </div>
+                <!-- /.Box Header -->
+                <!-- Box Body -->
+                <div class="box-body">
+                    <!-- Row -->
+                    <div class="row">                             
+                        <div class="col-md-12" ng-init="clientsList();">
+                            <div class="search-input-wrapper">	  
+                                <div class="btn-toolbar">
+                                    <!-- <button id="btn_refresh_current_new_manila" style="margin-bottom:10px;" class="btn btn-flat btn-danger pull-right btn-sm" ng-click="dtInstance2.reloadData()" title="Refresh">
+                                        <i class="fa fa-refresh fa-lg" style="padding:3px"></i>Refresh
+                                    </button>
+                                    <button title="Search" style="margin-bottom:10px;" class="btn btn-success btn-flat btn-sm pull-right" type="button" data-toggle="modal" data-target="#search_current_manila" ng-click="search_current_manila()">
+                                        <i class="fa fa fa-search fa-lg"></i> Search
+                                    </button>
+                                    <button title="Create Request" style="margin-bottom:10px;" class="btn btn-primary btn-flat btn-sm pull-right" type="button" ng-click="createRequestShow_manila();" data-toggle="modal" data-target="#createRequest_manila">
+                                        <i class="fa fa-plus-circle fa-lg"></i> Create Request
+                                    </button>
+                                    <button style="margin-bottom:10px;" class="btn btn-primary btn-flat btn-sm pull-left" type="button" ng-click="export_current_manila();">
+                                        <i class="fa fa-file-excel-o"></i> Export To Excel
+                                    </button> -->
+                                </div>  
+                                <!-- Datatables -->
+                                <table id="clientsList" datatable="" dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance3" class="display compact" style="width:100%"></table>
+                                <!-- /.Datatables -->
+                            </div>    
+                        </div>    
+                    </div>
+                    <!-- /.Row -->
+                </div>
+                <!-- /.Box Body -->
+            </div>
+            <!-- /.Main Box -->
+        </section>
+        <!-- /.Main Content -->
+    </div>
+    <!-- /.Content Wrapper. Contains page content -->
+    <!-- Footer Template -->
+    <div ng-include="footerTemplate"></div>
+    <!-- /.Footer Template -->
+
+    <!-- Add Client -->
+    <div class="modal fade modal-success" data-backdrop="static" id="addClient" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="addClient" style="overflow: scroll !important;">
+        <!-- Modal Dialog -->
+        <div class="modal-dialog" role="document">
+            <!-- Modal Content -->
+		    <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"><i class="fa fa-pencil-square-o fa-xs"></i> Add Client </h4>
+                </div>
+                <!-- /.Modal Header -->
+                <!-- Modal Body -->
+                <div class="modal-body" style="color:#333 !important;background: #ffffff !important">
+                    <!-- Row -->
+                    <div class="row">
+                        <!-- Form -->
+					    <form name="addClientForm" id="addClientForm" novalidate>
+                            <div class="col-md-12">
+                                <!--Company Name-->
+								<label for="add_company_name">Company Name:<i style="color:#f90000" ng-show="addClientForm.add_company_name.$error.required">*</i></label>
+								<input type="text" class="form-control" id="add_company_name" name="add_company_name" placeholder="Company Name" ng-model="add_company_name" required ng-disabled="isSaving"/>
+                                <!--/.Company Name-->
+                            </div>
+                            <div class="col-md-12" style="margin-top:10px;">
+                                <!-- Contact Person -->
+                                <label for="add_contact_person">Contact Person:<i style="color:#f90000" ng-show="addClientForm.add_contact_person.$error.required">*</i></label>
+                                <input type="text" class="form-control" id="add_contact_person" name="add_contact_person" placeholder="Contact Person" ng-model="add_contact_person" letters-only required ng-disabled="isSaving"/>
+                                <!-- /.Contact Person -->
+                            </div>
+                            <div class="col-md-12" style="margin-top:10px;">
+                                <!-- Contact Number -->
+                                <label class="control-label" for="add_contact_no">Contact Number:<i style="color:#f90000" ng-show="addClientForm.add_contact_no.$error.required">*</i></label><br/>
+                                <input type="text" maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g,'');" ng-model="add_contact_no" class="form-control" placeholder="Contact Number" name="add_contact_no" id="add_contact_no" ng-disabled="isSaving" required/>
+                                <!-- /.Contact Number -->
+                            </div>
+                            <div class="col-md-12" style="margin-top:10px;">
+                                <!-- Email Address -->
+                                <label class="control-label" for="add_email">Email Address:</label><br/>
+                                <input type="email" maxlength="50" id="add_email" ng-model="add_email" id="add_email" name="add_email" class="form-control" placeholder="Email Address" ng-disabled="isSaving" validate-email/>
+                                <!-- /.Email Address -->
+                            </div>
+                            <div class="col-md-12" style="margin-top:10px;">
+                                <!-- Company Address -->
+                                <label class="control-label" for="add_company_address">Address:<i style="color:#f90000" ng-show="addClientForm.add_company_address.$error.required">*</i></label><br/>
+								<textarea style="resize:vertical;height:100px;" id="add_company_address" ng-model="add_company_address" name="add_company_address" class="form-control" placeholder="Address" ng-disabled="isSaving" required/></textarea>
+                                <!-- Company Address -->
+                            </div>
+                        </form>
+                        <!-- /.Form -->
+                    </div>
+                    <!-- /.Row -->
+                </div>
+                <!-- /.Modal Body -->
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-flat btn-danger pull-left" ng-disabled="isSaving" data-dismiss="modal" data-toggle="modal">Close</button>
+                    <button type="submit" class="btn btn-flat btn-primary" ng-disabled="isSaving" ng-click="addClient();">Save</button>
+                </div>
+                <!-- /.Modal Footer --> 
+            </div>
+            <!-- /.Modal Content -->
+        </div>
+        <!-- /.Modal Dialog -->
+    </div>
+    <!-- /.Add Client-->
+
+    <!-- Edit Client -->
+    <div class="modal fade modal-success" data-backdrop="static" id="editClient" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="editClient" style="overflow: scroll !important;">
+        <!-- Modal Dialog -->
+        <div class="modal-dialog modal-lg" role="document">
+            <!-- Modal Content -->
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"><i class="fa fa-pencil-square-o fa-xs"></i> Edit Client </h4>
+                </div>
+                <!-- /.Modal Header -->
+                <!-- Modal Body -->
+                <div class="modal-body" style="color:#333 !important;background: #ffffff !important">
+                    <!-- Row -->
+				    <div class="row">
+                        <!-- Form -->
+					    <form name="editClientForm" id="editClientForm" novalidate>
+                            <div class="col-md-12">
+                                <input type="hidden" ng-model="edit_company_id">
+                                <input type="hidden" ng-model="prev_company_name">
+                                <input type="hidden" ng-model="prev_status">
+                                <input type="hidden" ng-model="prev_contact_person">
+                                <input type="hidden" ng-model="prev_contact_no">
+                                <input type="hidden" ng-model="prev_email">
+                                <input type="hidden" ng-model="prev_daily_rate">
+                                <input type="hidden" ng-model="prev_company_address">
+
+                                <div class="col-sm-12">
+                                    <!--Company Name-->
+                                    <label for="edit_company_name">Company Name:<i style="color:#f90000" ng-show="editClientForm.edit_company_name.$error.required">*</i></label>
+                                    <input type="text" class="form-control" id="edit_company_name" name="edit_company_name" placeholder="Company Name" ng-model="edit_company_name" required ng-disabled="isSaving"/>
+                                    <!--/.Company Name-->
+                                </div>
+                            </div>
+                            <div class="col-md-12" style="margin-top:10px;">
+                                <div class="col-sm-6">
+                                    <!-- Contact Person -->
+                                    <label for="edit_contact_person">Contact Person:<i style="color:#f90000" ng-show="editClientForm.edit_contact_person.$error.required">*</i></label>
+                                    <input type="text" class="form-control" id="edit_contact_person" name="edit_contact_person" placeholder="Contact Person" ng-model="edit_contact_person" letters-only required ng-disabled="isSaving"/>
+                                    <!-- /.Contact Person -->
+                                </div>
+                                <div class="col-sm-6">
+                                    <!-- Contact Number -->
+                                    <label class="control-label" for="edit_contact_no">Contact Number:<i style="color:#f90000" ng-show="editClientForm.edit_contact_no.$error.required">*</i></label><br/>
+                                    <input type="text" maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g,'');" ng-model="edit_contact_no" class="form-control" placeholder="Contact Number" name="edit_contact_no" id="edit_contact_no" ng-disabled="isSaving" required/>
+                                    <!-- /.Contact Number -->
+                                </div>
+                            </div>
+                            <div class="col-md-12" style="margin-top:10px;">
+                                <div class="col-sm-6">
+                                    <!-- Email Address -->
+                                    <label class="control-label" for="edit_email">Email Address:</label><br/>
+                                    <input type="email" maxlength="50" id="edit_email" ng-model="edit_email" id="edit_email" name="edit_email" class="form-control" placeholder="Email Address" ng-disabled="isSaving" validate-email/>
+                                    <!-- /.Email Address -->
+                                </div>
+                                <div class="col-sm-6">
+                                    <!-- Status -->
+                                    <label class="control-label" for="edit_status">Status:<i style="color:#f90000" ng-show="editClientForm.edit_status.$error.required">*</i></label>
+                                    <select style="width:100%;padding:5px;" class="form-control select2" ng-disabled="isSaving" name="edit_status" select2 ng-model="edit_status" required >
+                                        <option value="Active">ACTIVE</option>
+                                        <option value="Inactive">INACTIVE</option>
+                                    </select>
+                                    <!-- /.Status -->
+                                </div>
+                            </div>
+                            <div class="col-md-12" style="margin-top:10px;">
+                                <div class="col-sm-12">
+                                    <!-- Company Address -->
+                                    <label class="control-label" for="edit_company_address">Address:<i style="color:#f90000" ng-show="editClientForm.edit_company_address.$error.required">*</i></label><br/>
+                                    <textarea style="resize:vertical;height:100px;" id="edit_company_address" ng-model="edit_company_address" name="edit_company_address" class="form-control" placeholder="Address" ng-disabled="isSaving" required/></textarea>
+                                    <!-- Company Address -->
+                                </div>
+                            </div>
+
+                            <div class="col-md-12" style="margin-top:25px;">
+                                <!-- COST DISTRIBUTION PER MONTH -->
+                                <div class="col-sm-12" style="text-align:center;">
+                                    <p><b>COST DISTRIBUTION PER MONTH</b></p>
+                                </div>
+                                <!-- /.COST DISTRIBUTION PER MONTH -->
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="col-sm-12 table-responsive">
+
+                                    <input type="hidden" ng-model="prev_working_hours">
+                                    <input type="hidden" ng-model="prev_minimum_daily_rate">
+                                    <input type="hidden" ng-model="prev_5_days_incentive">
+                                    <input type="hidden" ng-model="prev_13th_month_pay">
+                                    <input type="hidden" ng-model="prev_retirement_benefits">
+                                    <input type="hidden" ng-model="prev_uniform_allowance">
+                                    <input type="hidden" ng-model="prev_overtime">
+                                    <input type="hidden" ng-model="prev_night_differential">
+                                    <input type="hidden" ng-model="prev_sss">
+                                    <input type="hidden" ng-model="prev_philhealth">
+                                    <input type="hidden" ng-model="prev_pagibig">
+                                    <input type="hidden" ng-model="prev_others">
+
+                                    <!-- Table -->
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th class="shift">SHIFT</th>
+                                                <th class="day_shift">VALUE / AMOUNT</th>
+                                                <!-- <th class="night_shift">NIGHT SHIFT</th> -->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>NO. OF WORKING HOURS</td>
+                                                <td><input type="text" ng-model="working_hours" class="form-control input_type" number-float step="0.01" name="working_hours" id="working_hours" ng-disabled="isSaving"/></td>
+                                                <!-- <td><input type="text" ng-model="ns_working_hours" class="form-control input_type" number-float step="0.01" name="ns_working_hours" id="ns_working_hours" ng-disabled="isSaving"/></td> -->
+                                            </tr>
+                                            <!-- <tr>
+                                                <td>ANNUAL FACTOR</td>
+                                                <td><input type="text" ng-model="ds_annual_factor" ng-keyup="ds_a_calc()" class="form-control input_type" number-float step="0.01" name="ds_annual_factor" id="ds_annual_factor" ng-disabled="isSaving"/></td>
+                                                <td><input type="text" ng-model="ns_annual_factor" class="form-control input_type" number-float step="0.01" name="ns_annual_factor" id="ns_annual_factor" ng-disabled="isSaving"/></td>
+                                            </tr> -->
+                                            <tr>
+                                                <td>MINIMUM DAILY RATE</td>
+                                                <td><input type="text" ng-model="minimum_daily_rate" class="form-control input_type" number-float step="0.01" name="minimum_daily_rate" id="minimum_daily_rate" ng-disabled="isSaving"/></td>
+                                                <!-- <td><input type="text" ng-model="ns_minimum_daily_rate" class="form-control input_type" number-float step="0.01" name="ns_minimum_daily_rate" id="ns_minimum_daily_rate" ng-disabled="isSaving"/></td> -->
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <!-- /.Table -->
+                                </div>
+                                <div class="col-sm-12 table-responsive">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <!-- <tr>
+                                                <td class="shift">AVERAGE PAY PER MONTH (DAILY WAGE x 393.5/12)</td>
+                                                <td class="day_shift"><input type="text" ng-model="ds_average_pay_per_month" ng-keyup="ds_total_amount_before_ot_calc()" class="form-control input_type" name="ds_average_pay_per_month" number-float step="0.01" id="ds_average_pay_per_month" ng-disabled="isSaving" readonly/></td>
+                                                <td class="night_shift"><input type="text" ng-model="ns_average_pay_per_month" class="form-control input_type" number-float step="0.01" name="ns_average_pay_per_month" id="ns_average_pay_per_month" ng-disabled="isSaving"/></td>
+                                            </tr> -->
+                                            <tr>
+                                                <td class="shift">5 DAYS INCENTIVE (DAILY WAGE x 5/12)</td>
+                                                <td class="day_shift"><input type="text" ng-model="_5_days_incentive" class="form-control input_type" number-float step="0.01" name="_5_days_incentive" id="_5_days_incentive" ng-disabled="isSaving"/></td>
+                                                <!-- <td class="night_shift"><input type="text" ng-model="ns_5_days_incentive" class="form-control input_type" number-float step="0.01" name="ns_5_days_incentive" id="ns_5_days_incentive" ng-disabled="isSaving"/></td> -->
+                                            </tr>
+                                            <tr>
+                                                <td class="shift">13th MONTH PAY (DAILY WAGE x 365/12/12)</td>
+                                                <td class="day_shift"><input type="text" ng-model="_13th_month_pay" class="form-control input_type" number-float step="0.01" name="_13th_month_pay" id="_13th_month_pay" ng-disabled="isSaving" required/></td>
+                                                <!-- <td class="night_shift"><input type="text" ng-model="ns_13th_month_pay" class="form-control input_type" number-float step="0.01" name="ns_13th_month_pay" id="ns_13th_month_pay" ng-disabled="isSaving"/></td> -->
+                                            </tr>
+                                            <tr>
+                                                <td class="shift">RETIREMENT BENEFITS RA 7641 (DAILY WAGE x 22.53/12)</td>
+                                                <td class="day_shift"><input type="text" ng-model="retirement_benefits" class="form-control input_type" number-float step="0.01" name="retirement_benefits" id="retirement_benefits" ng-disabled="isSaving"/></td>
+                                                <!-- <td class="night_shift"><input type="text" ng-model="ns_retirement_benefits" class="form-control input_type" number-float step="0.01" name="ns_retirement_benefits" id="ns_retirement_benefits" ng-disabled="isSaving"/></td> -->
+                                            </tr>
+                                            <tr>
+                                                <td class="shift">UNIFORM ALLOWANCE RA 5487</td>
+                                                <td class="day_shift"><input type="text" ng-model="uniform_allowance" class="form-control input_type" number-float step="0.01" name="uniform_allowance" id="uniform_allowance" ng-disabled="isSaving"/></td>
+                                                <!-- <td class="night_shift"><input type="text" ng-model="ns_uniform_allowance" class="form-control input_type" number-float step="0.01" name="ns_uniform_allowance" id="ns_uniform_allowance" ng-disabled="isSaving"/></td> -->
+                                            </tr>
+                                            <!-- <tr class="warning">
+                                                <td class="shift">TOTAL AMOUNT BEFORE OT AND NIGHT SHIFT</td>
+                                                <td class="day_shift" ng-model="ds_total_amount_before_ot" number-float step="0.01">{{ ds_total_amount_before_ot }}</td>
+                                                <td class="night_shift">{{ ns_total_amount_before_ot }}</td>
+                                            </tr> -->
+                                        </tbody>
+                                    </table>
+                                    <!-- /.Table -->
+                                </div>
+                                <div class="col-sm-12 table-responsive">
+                                    <!-- Table -->
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <td class="shift">OVERTIME (IN EXCESS OF 8 HOURS) (DAILY RATE/8x1.25x4x393.5/12) </td>
+                                                <td class="day_shift"><input type="text" ng-model="overtime" class="form-control input_type" number-float step="0.01" name="overtime" id="overtime" ng-disabled="isSaving"/></td>
+                                                <!-- <td class="night_shift"><input type="text" ng-model="ns_overtime" class="form-control input_type" number-float step="0.01" name="ns_overtime" id="ns_overtime" ng-disabled="isSaving"/></td> -->
+                                            </tr>
+                                            <tr>
+                                                <td class="shift">NIGHT DIFFERENTIAL (AVERAGE PAY PER MONTH x 10%) </td>
+                                                <td class="day_shift"><input type="text" ng-model="night_differential" class="form-control input_type" number-float step="0.01" name="night_differential" id="night_differential" ng-disabled="isSaving"/></td>
+                                            </tr>
+                                            <!-- <tr class="warning">
+                                                <td class="shift">TOTAL AMOUNT DIRECT TO GUARD </td>
+                                                <td class="day_shift">{{ ds_total_amount_direct_to_guard }}</td>
+                                                <td class="night_shift">{{ ns_total_amount_direct_to_guard }}</td>
+                                            </tr> -->
+                                        </tbody>
+                                    </table>
+                                    <!-- /.Table -->
+                                </div>
+                                <div class="col-sm-12 table-responsive">
+                                    <!-- Table -->
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <td class="shift">SSS (EMPLOYER'S SHARE) </td>
+                                                <td class="day_shift"><input type="text" ng-model="sss" class="form-control input_type" number-float step="0.01" name="sss" id="ds_sss" ng-disabled="isSaving"/></td>
+                                                <!-- <td class="night_shift"><input type="text" ng-model="ns_sss" class="form-control input_type" number-float step="0.01" name="ns_sss" id="ns_sss" ng-disabled="isSaving"/></td> -->
+                                            </tr>
+                                            <tr>
+                                                <td class="shift">PHILHEALTH (EMPLOYER'S SHARE) </td>
+                                                <td class="day_shift"><input type="text" ng-model="philhealth" class="form-control input_type" number-float step="0.01" name="philhealth" id="philhealth" ng-disabled="isSaving"/></td>
+                                                <!-- <td class="night_shift"><input type="text" ng-model="ns_philhealth" class="form-control input_type" number-float step="0.01" name="ns_philhealth" id="ns_philhealth" ng-disabled="isSaving"/></td> -->
+                                            </tr>
+                                            <tr>
+                                                <td class="shift">PAGIBIG (EMPLOYER'S SHARE) </td>
+                                                <td class="day_shift"><input type="text" ng-model="pagibig" class="form-control input_type" number-float step="0.01" name="pagibig" id="pagibig" ng-disabled="isSaving"/></td>
+                                                <!-- <td class="night_shift"><input type="text" ng-model="ns_pagibig" class="form-control input_type" number-float step="0.01" name="ns_pagibig" id="ns_pagibig" ng-disabled="isSaving"/></td> -->
+                                            </tr>
+                                            <tr>
+                                                <td class="shift">OTHERS </td>
+                                                <td class="day_shift"><input type="text" ng-model="others" class="form-control input_type" number-float step="0.01" name="others" id="others" ng-disabled="isSaving"/></td>
+                                                <!-- <td class="night_shift"><input type="text" ng-model="ns_pagibig" class="form-control input_type" number-float step="0.01" name="ns_pagibig" id="ns_pagibig" ng-disabled="isSaving"/></td> -->
+                                            </tr>
+                                            <!-- <tr class="warning">
+                                                <td class="shift">TOTAL AMOUNT DIRECT TO GOV'T IN FAVOR OF SG </td>
+                                                <td class="day_shift">{{ ds_total_amount_direct_to_govt_in_favor_of_sg }}</td>
+                                                <td class="night_shift">{{ ns_total_amount_direct_to_govt_in_favor_of_sg }}</td>
+                                            </tr>
+                                            <tr class="warning">
+                                                <td class="shift">TOTAL AMOUNT DIRECT TO GUARD & GOVT. </td>
+                                                <td class="day_shift">{{ ds_total_amount_direct_to_guard_and_govt }}</td>
+                                                <td class="night_shift">{{ ns_total_amount_direct_to_guard_and_govt }}</td>
+                                            </tr>
+                                            <tr class="warning">
+                                                <td class="shift">AGENCY FEE </td>
+                                                <td class="day_shift">{{ ds_agency_fee }}</td>
+                                                <td class="night_shift">{{ ns_agency_fee }}</td>
+                                            </tr>
+                                            <tr class="warning">
+                                                <td class="shift">VAT (AGENCY FEE x 12%) </td>
+                                                <td class="day_shift">{{ ds_vat }}</td>
+                                                <td class="night_shift">{{ ns_vat }}</td>
+                                            </tr>
+                                            <tr class="warning">
+                                                <td class="shift">TOTAL CONTRACT RATE </td>
+                                                <td class="day_shift">{{ ds_total_contract_rate }}</td>
+                                                <td class="night_shift">{{ ns_total_contract_rate }}</td>
+                                            </tr> -->
+                                        </tbody>
+                                    </table>
+                                    <!-- /.Table -->
+                                </div> 
+                            </div>
+                        </form>
+                        <!-- /.Form -->
+                    </div>
+                    <!-- /.Row -->
+                </div>
+                <!-- /.Modal Body -->
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-flat btn-danger pull-left" ng-disabled="isSaving" data-dismiss="modal" data-toggle="modal">Close</button>
+                    <button type="submit" class="btn btn-flat btn-primary" ng-disabled="isSaving" ng-click="editClient();">Save</button>
+                </div>
+                <!-- /.Modal Footer --> 
+            </div>
+            <!-- /.Modal Content -->
+        </div>
+        <!-- /.Modal Dialog -->
+    </div>
+    <!-- /.Edit Client -->
+
+    <!-- Duty Detail Order Modal-->
+    <div class="modal fade modal-success" data-backdrop="static" id="duty_detail_order" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="duty_detail_order" style="overflow: scroll !important;">
+        <!-- Modal Dialog -->
+        <div class="modal-dialog modal-lg" role="document">
+            <!-- Modal Content -->
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"><i class="fa fa-pencil-square-o fa-xs"></i> Duty Detail Order </h4>
+                </div>
+                <!-- /.Modal Header -->
+                <!-- Modal Body -->
+                <div class="modal-body" style="color:#333 !important;background: #ffffff !important">
+                    <!-- Row -->
+                    <div class="row">
+                        <!-- Form -->
+                        <form name="dutyOrderForm" id="dutyOrderForm" novalidate>
+                            <div class = "col-md-12">
+                                <input type="hidden" ng-model="lgsa_client_id">
+
+                                <div class="col-sm-12"  style="text-align:center;">
+                                    <b style = "font-size:20px;">Lance Gavien Security Agency</b>
+                                    <p style = "font-size:15px;">Purok Mabini, Poblacion, Liloan, Cebu</p>
+                                    <p style = "font-size:15px;">Tel. No. 424-4293 / Mobile no. 09436963921</p>
+                                </div>
+                            </div>
+
+                            <div class = "col-md-12" style = "margin-top:20px; margin-bottom:20px;">
+                                <div class = "col-sm-4">
+                                    <label>DUTY DETAIL ORDER NO.:</label><br/>
+                                    0100-2020
+                                </div>
+                                <div class = "col-sm-4">
+                                    <label style = "font-size:15px; text-align:right;">DATE FROM:</label><br/>
+                                    <input type="text" name="ddo_date_from" ng-model="ddo_date_from" class="form-control input_type" readonly="readonly" ng-disabled="isSaving" style="background:#fff;" datepicker required/>
+                                </div>
+                                <div class = "col-sm-4">
+                                    <label style = "font-size:15px; text-align:right;">DATE TO:</label><br/>
+                                    <input type="text" name="ddo_date_to" ng-model="ddo_date_to" class="form-control input_type" readonly="readonly" ng-disabled="isSaving" style="background:#fff;" datepicker required/>
+                                </div>
+                            </div>
+
+                            <div class = "col-md-12">
+                                <div class = "col-sm-12">
+                                    <p style = "font-size:15px;">1.&nbsp; Reference &nbsp; : &nbsp; Section 4 &amp; 6 of the Implementating Rules and Regulations of P. D. # 1866.</p>
+                                </div>
+                            </div>
+
+                            <div class = "col-md-12">
+                                <div class = "col-sm-12">
+                                    <p style = "font-size:15px;">2.&nbsp; The following are hereby assigned to render securities in places indicated and hereby issued Agency</p>
+                                    <p style = "font-size:15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;owned firearms properly identified as follows:</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="col-sm-12">
+                                    <div class="col-xs-3 paddingZero text-center border hidden-xs hidden-sm" style="background:#c1fcc1"><label>Name</label></div>
+                                    <div class="col-xs-6 paddingZero text-center border hidden-xs hidden-sm" style="background:#c1fcc1"><label>Place of Duty</label></div>
+                                    <div class="col-xs-3 paddingZero text-center border hidden-xs hidden-sm" style="background:#c1fcc1"><label>FIrearms Issued</label></div>
+                            
+                                    <div class="col-xs-3 paddingZero text-center border visible-xs visible-sm" style="background:#c1fcc1;font-size:12px;"><label>Name</label></div>
+                                    <div class="col-xs-6 paddingZero text-center border visible-xs visible-sm" style="background:#c1fcc1;font-size:12px;"><label>Place of Duty</label></div>
+                                    <div class="col-xs-3 paddingZero text-center border visible-xs visible-sm" style="background:#c1fcc1;font-size:12px;"><label>Firearms Issued</label></div>
+                                </div>
+                                <div class="col-md-12 duty_detail">
+                                
+                                    <div class="col-xs-3 paddingZero text-center hidden-xs hidden-sm">
+                                        <select style="width:100%;padding:5px;" class="form-control select2" select2 ng-model="entry.duty.ddo_employee[0]" ng-change="getEmployeePostingArea();" name="entry.duty.ddo_employee[0]" required ng-disabled="isSaving"">
+                                            <option value="">Select Employee</option>
+                                            <option ng-repeat="employee in get_all_employee track by $index" value="{{employee.employee_id}}">{{employee.fullname}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-6 paddingZero text-center hidden-xs hidden-sm">
+                                        <textarea style="resize:vertical;height:35px;" ng-model="entry.duty.ddo_place_of_duty[0]" name="entry.duty.ddo_place_of_duty[0]" class="form-control" ng-disabled="isSaving" required/></textarea>
+                                    </div>
+                                    <div class="col-xs-3 paddingZero text-center hidden-xs hidden-sm">
+                                        <input type="text" class="form-control" name="entry.duty.ddo_firearms_issued[0]" ng-model="entry.duty.ddo_firearms_issued[0]" required ng-disabled="isSaving"/>
+                                    </div>
+
+                                    <div class="col-xs-3 paddingZero text-center visible-xs visible-sm">
+                                        <select style="width:100%;padding:5px;" class="form-control select2" select2 ng-model="entry.duty.ddo_employee[0]" ng-change="getEmployeePostingArea();" name="entry.duty.ddo_employee[0]" required ng-disabled="isSaving"">
+                                            <option value="">Select Employee</option>
+                                            <option ng-repeat="employee in get_all_employee track by $index" value="{{employee.employee_id}}">{{employee.fullname}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-6 paddingZero text-center visible-xs visible-sm">
+                                        <textarea style="resize:vertical;height:35px;" ng-model="entry.duty.ddo_place_of_duty[0]" name="entry.duty.ddo_place_of_duty[0]" class="form-control" ng-disabled="isSaving" required/></textarea>
+                                    </div>
+                                    <div class="col-xs-3 paddingZero text-center visible-xs visible-sm">
+                                        <input type="text" class="form-control" name="entry.duty.ddo_firearms_issued[0]" ng-model="entry.duty.ddo_firearms_issued[0]" required ng-disabled="isSaving"/>
+                                    </div>
+                                </div>
+                                <div id="buttons-dutydetail" class="col-xs-12 text-right">
+                                    <button type="button" adddutydetail class="cols-xs-12 btn btn-small btn-primary btn-flat"><span class="fa fa-plus-circle">
+                                </div>
+                            </div>
+
+                            <!-- <div class = "col-md-12">
+                                <div class = "col-sm-12">
+                                    <table class = "table table-bordered">
+                                        <tr>
+                                            <th style = "text-align: center;">Name</th>
+                                            <th style = "text-align: center;">Place of Duty</th>
+                                            <th style = "text-align: center;">Date</th>
+                                            <th style = "text-align: center;">Firearms Issued</th>
+                                        </tr>
+                                        <tr>
+                                            <td><select class="js-data-example-ajax form-control input_type serverside_employee" style="width:100%;" ng-disabled="isSaving" name="cashadvance_client" select2 ng-model="cashadvance_client" ng-change="getClient_name();" ng-disabled="isSaving" required/> 
+                                                </select>
+                                            </td>
+                                            <td>SANTIAGO SHIPYARD AND SAN VICENTE,LILOAN,CEBU</td>
+                                            <td>APRIL 1, 2020 TO APRIL 30,2020</td>
+                                            <td>38 RVLVR/ARMSCOR</td>
+                                        </tr>
+                                    </table>    
+                                </div>
+                            </div> -->
+
+                            <div class = "col-md-12" style="margin-top:10px;">
+                                <div class = "col-sm-12">
+                                    <p style = "font-size:15px;">3.&nbsp; Specific Instructions: </p>
+                                    <p style = "font-size:15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a)&nbsp;&nbsp; Security guard in this Duty Detail Order must be in proper uniform and shall carry his issued</p>
+                                    <p style = "font-size:15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;firearms from Agency's office to place of guard duty and vice-versa.</p>
+                                    <p style = "font-size:15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b)&nbsp;&nbsp; The issued firearms to the guard are licensed, a copy of which is in the possession of the guards.</p>
+                                </div>
+                            </div>
+
+                            <div class = "col-md-12">
+                                <div class = "col-sm-12">
+                                    <p style = "font-size:15px;">4.&nbsp; This Duty Order serves as the authority for the aforementioned guards to carry their issued firearms.</p>
+                                </div>
+                            </div>
+                            
+                            <div class = "col-md-12" style = "margin-top:10%;">
+                                <div class = "col-sm-6">
+                                    <p style = "font-size:15px;">Received by:</p>
+                                </div>
+                                <div class = "col-sm-6">
+                                    <p style = "font-size:15px;"><u>SO JOHN JOSEPH H. PONCE</u></p>
+                                    <p style = "font-size:15px;">Executive Security Director</p>
+                                </div>
+                            </div>
+
+                        </form>
+                        <!-- /.Form -->
+                    </div>
+                    <!-- /.Row -->
+                </div>
+                <!-- /.Modal Body -->
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-flat btn-danger pull-left" ng-disabled="isSaving" data-dismiss="modal" data-toggle="modal">Close</button>
+                    <button type="submit" class="btn btn-flat btn-default" data-target ="#confirmPrintDutyOrder" ng-print print-element-id="confirm_print_duty_order"> <i class = "fa fa-print"></i> Print</button>
+                    <button type="submit" class="btn btn-flat btn-warning" data-toggle="modal" data-target="#confirmApprovedDutyDetailOrder">Approved</button>
+                </div>
+                <!-- /.Modal Footer --> 
+            </div>
+            <!-- /.Modal Content -->
+        </div>
+        <!-- /.Modal Dialog -->
+    </div>
+    <!-- /.Duty Detail Order -->
+
+    <!--Confirm Approved-->
+    <div class="modal fade modal-success" data-backdrop="static" id="confirmApprovedDutyDetailOrder" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="confirmApprovedDutyDetailOrder" style="overflow: scroll !important;">
+        <!-- Modal Dialog -->
+        <div class="modal-dialog" role="document">
+            <!-- Modal Content -->
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"><i class="fa fa-check"></i> Confirmation </h4>
+                </div>
+                <!-- /.Modal Header -->
+                <!-- Modal Body -->
+                <div class="modal-body mx-3" style="color:#333 !important;background: #ffffff !important">
+                    <div class="span5">Are you sure you want to Approve?</div>
+                </div>
+                <!-- /.Modal Body -->
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-flat btn-danger pull-left" data-dismiss="modal" data-toggle="modal">Close</button>
+                    <button data-dismiss="modal" type="button" class="btn btn-flat btn-primary" ng-click="confirm_duty_detail_order();"> Save</button>
+                </div>
+                <!-- /.Modal Footer -->
+            </div>
+            <!-- /.Modal Content -->
+        </div>
+        <!-- /.Modal Dialog -->
+    </div>
+    <!--/.Confirm Aprroved-->
+    
+    <!-- Print -->
+    <div id="confirm_print_duty_order" class="print-only" style="width: 100% !important">
+        <!-- row -->
+        <div class = "row">
+            <div class="col-xs-12"  style="text-align:center;">
+                <div class = "col-xs-10">
+                    <span style = "font-size:15px;  margin-left:130px;"><b>LANCE&nbsp;GAVIEN&nbsp;SECURITY&nbsp;AGENCY</b></span>
+                    <span style = "font-size:12px; margin-left:130px;"><b>Purok&nbsp;Mabini,&nbsp;Poblacion,&nbsp;Liloan,&nbsp;Cebu</b></span><br>
+                    <span style = "font-size:12px; margin-left:130px;"><b>Tel.&nbsp;No.&nbsp;424-4293&nbsp;TIN:&nbsp;142-291-298-000</b></span>
+                </div>
+            </div>
+
+            <div class = "col-xs-12" style = "margin-top:20px; margin-bottom:20px;">
+                <div class = "col-xs-8 paddingZero">
+                    <p>DUTY DETAIL ORDER No.:&nbsp;&nbsp; 0100-2020</p>
+                </div>
+                <div class = "col-xs-4 paddingZero">
+                    <p>DATE: APRIL 01,2020</p>
+                </div>
+            </div>
+
+            <div class = "col-xs-12">
+                <div class = "col-xs-12 paddingZero">
+                    <p>1.&nbsp; Reference &nbsp; : &nbsp; Section 4 &amp; 6 of the Implementating Rules and Regulations of P. D. # 1866.</p>
+                </div>
+            </div>
+
+            <div class = "col-xs-12">
+                <div class = "col-xs-12 paddingZero">
+                    <p>2.&nbsp; The following are hereby assigned to render securities in places indicated and hereby issued Agency</p>
+                    <p>owned firearms properly identified as follows:</p>
+                </div>
+            </div>
+
+            <div class = "col-xs-12">
+                <div class="col-xs-12 paddingZero" style="padding-top:15px">
+                    <div class="col-container" style="display: flex;width: 100%;">
+                        <div class="col-xs-3  text-center border" ><label>Name</label></div>
+                        <div class="col-xs-3  text-center border" ><label>Place of Duty</label></div>
+                        <div class="col-xs-3  text-center border" ><label>Date</label></div>
+                        <div class="col-xs-3  text-center border" ><label>Firearms Issued</label></div>
+                    </div>
+                </div>
+                <div class="col-container" style="display: flex;width: 100%;">
+                    <div class="paddingZero col" style="border: 1px solid #000000;width:33.3%; padding:5px; ">
+                        <p style="word-break: break-all;font-size: 7pt"> SG CASTILLO</p>
+                    </div>
+                    <div class="col" style="border: 1px solid #000000;width:33.3%; padding:5px;">
+                        <p style="word-break: break-all;font-size: 7pt">SANTIAGO SHIPYARD</p>
+                    </div>
+                    <div class="col" style="border: 1px solid #000000;width:33.3%; padding:5px;">
+                        <p style="word-break: break-all;font-size: 7pt">APRIL 7 2020 TO APRIL 2 0220</p>
+                    </div>
+                    <div class="col" style="border: 1px solid #000000;width:33.3%; padding:5px;">
+                        <p style="word-break: break-all;font-size: 7pt">28 RVLRD/ ARMSCOR SNR # 123456789</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class = "col-xs-12">
+                <div class = "col-xs-12 paddingZero" style = "padding-top:5px;">
+                    <p>3.&nbsp; Specific Instructions: </p> <br>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a)&nbsp;&nbsp; Security guard in this Duty Detail Order must be in proper uniform and shall carry his issued</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;firearms from Agency's office to place of guard duty and vice-versa.</p> <br>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b)&nbsp;&nbsp; The issued firearms to the guard are licensed, a copy of which is in the possession of the guards.</p>
+                </div>
+            </div>
+            
+            <div class = "col-xs-12">
+                <div class = "col-xs-12 paddingZero">
+                    <p>4.&nbsp; This Duty Order serves as the authority for the aforementioned guards to carry their issued firearms.</p>
+                </div>
+            </div>
+
+            <div class="col-xs-12 paddingZero" style="padding-top:50px">
+                <div class="col-xs-6">
+                    Received By: ________________________<br>
+                    <p style="text-align: center;">{{update.createdby}}</p><br>
+                </div>
+                <div class="col-xs-6">
+                    <p><u>SO JOHN JOSEPH H. PONCE</u></p> <br>
+                    <p>Executive Security Director</p>
+                </div>
+            </div>
+
+
+        </div>
+        <!--/. row-->
+    </div>
+    <!--/. Print-->
+
+   
+</div>
+<!-- /.Wrapper -->
+
+<!-- CSS -->
+<style rel="stylesheet">
+#clientsList th {
+	background-color: #4CAF50;
+    font-weight: 600;
+}
+#clientsList td {
+	font-size: 12px;
+}
+.shift {
+    width: 70%;
+    font-weight: 500;
+}
+.day_shift{
+    width: 30%;
+    font-weight: 500;
+    text-align: center;
+}
+.input_type {
+    height: 20px !important;
+}
+.print-only{
+        display: none;
+    }
+
+    @media print {
+        .no-print {
+            display: none;
+        }
+
+        .print-only{
+            display: block;
+        }
+}
+.paddingZero{ 
+    padding:0
+}
+.border{ border:1px solid #000000}
+.margin{ margin-bottom: 1%;}
+.inputBorders{border-bottom: none; border-right: none; border-top: none; }
+.inputcolor::-webkit-input-placeholder{color: #000 !important; font-family:Georgia, "Times New Roman", Times, serif; font-weight:bold}
+.txtresize{ resize:vertical;  min-height:110px !important; }	
+.readonly{
+    background: white !important;
+}
+/*Parts Table*/
+.col-container {
+    display: table;
+    width: 100%;
+}
+.col {
+    display: table-cell;
+}
+/*Parts Table*/
+</style>
+<!-- /.CSS -->
+<!-- Javascript -->
+<script src="frontend/dependencies/bower_components/function/serverSideDropdown.js"></script>
+<!-- /.Javascript -->

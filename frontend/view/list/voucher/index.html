@@ -1,0 +1,85 @@
+<!-- Wrapper -->
+<div class="wrapper" ng-controller="voucherlistController" ng-init="voucherlist.active();">
+    <spinner name="voucherlistSpinner" ng-cloak="">
+        <div class="overlay"></div>
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+        <div class="please-wait">Please wait...</div>
+    </spinner>
+    <!-- Header Template-->
+    <div ng-include="headerTemplate"></div>
+    <!-- /.Header Template-->
+    <!-- Left Navigation Template -->
+    <div ng-include="leftNavigationTemplate"></div>
+    <!-- /.Left Navigation Template -->
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                List
+                <small>Voucher</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <a>
+                        <i class="fa fa-list"></i>
+                        <span>Voucher</span> 
+                    </a>    
+                </li>
+            </ol>
+        </section>
+        <!-- /.Content Header (Page header) -->
+        <!-- Main Content -->
+        <section class="content">
+            <!-- Continue Codes Here -->
+            <!-- Main Box -->
+            <div class="box box-success">
+                <!-- Box Header -->
+                <div class="box-header with-border">
+                    <h3 class="box-title">V-List</h3>
+                </div>
+                <!-- /.Box Header -->
+                <!-- Box Body -->
+                <div class="box-body">
+                    <!-- Row -->
+                    <div class="row">                             
+                        <div class="col-md-12" ng-init="listVoucher();">
+                            <div class="search-input-wrapper">	  
+                                <div class="btn-toolbar">
+                                </div>  
+                                <!-- Datatables -->
+                                <table id="listVoucher" datatable="" dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance9" class="display compact" style="width:100%"></table>
+                                <!-- /.Datatables -->
+                            </div>    
+                        </div>    
+                    </div>
+                    <!-- /.Row -->
+                </div>
+                <!-- /.Box Body -->
+            </div>
+            <!-- /.Main Box -->
+        </section>
+        <!-- /.Main Content -->
+    </div>
+    <!-- /.Content Wrapper. Contains page content -->
+    <!-- Footer Template -->
+    <div ng-include="footerTemplate"></div>
+    <!-- /.Footer Template -->
+
+</div>
+<!-- /.Wrapper -->
+
+<!-- CSS -->
+<style rel="stylesheet">
+#listVoucher th {
+	background-color: #4CAF50;
+    font-weight: 600;
+}
+#listVoucher td {
+	font-size: 12px;
+}
+</style>
+<!-- /.CSS -->

@@ -1,0 +1,528 @@
+<!-- Wrapper -->
+<div class="wrapper" ng-controller="voucherController" ng-init="voucher.active();">
+    <spinner name="voucherSpinner" ng-cloak="">
+        <div class="overlay"></div>
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+        <div class="please-wait">Please wait...</div>
+    </spinner>
+    <!-- Header Template-->
+    <div ng-include="headerTemplate"></div>
+    <!-- /.Header Template-->
+    <!-- Left Navigation Template -->
+    <div ng-include="leftNavigationTemplate"></div>
+    <!-- /.Left Navigation Template -->
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Voucher
+                <small>List</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <a>
+                        <i class="fa fa-paste"></i>
+                        <span>Voucher</span> 
+                    </a>    
+                </li>
+            </ol>
+        </section>
+        <!-- /.Content Header (Page header) -->
+        <!-- Main Content -->
+        <section class="content">
+            <!-- Continue Codes Here -->
+            <!-- Main Box -->
+            <div class="box box-success">
+                <!-- Box Header -->
+                <div class="box-header with-border">
+                    <h3 class="box-title">V-List</h3>
+                </div>
+                <!-- /.Box Header -->
+                <!-- Box Body -->
+                <div class="box-body">
+                    <!-- Row -->
+                    <div class="row">                             
+                        <div class="col-md-12" ng-init="voucherList();">
+                            <div class="search-input-wrapper">	  
+                                <div class="btn-toolbar">
+                                    <!-- <button id="btn_refresh_current_new_manila" style="margin-bottom:10px;" class="btn btn-flat btn-danger pull-right btn-sm" ng-click="dtInstance2.reloadData()" title="Refresh">
+                                        <i class="fa fa-refresh fa-lg" style="padding:3px"></i>Refresh
+                                    </button>
+                                    <button title="Search" style="margin-bottom:10px;" class="btn btn-success btn-flat btn-sm pull-right" type="button" data-toggle="modal" data-target="#search_current_manila" ng-click="search_current_manila()">
+                                        <i class="fa fa fa-search fa-lg"></i> Search
+                                    </button>
+                                    <button title="Create Request" style="margin-bottom:10px;" class="btn btn-primary btn-flat btn-sm pull-right" type="button" ng-click="createRequestShow_manila();" data-toggle="modal" data-target="#createRequest_manila">
+                                        <i class="fa fa-plus-circle fa-lg"></i> Create Request
+                                    </button>
+                                    <button style="margin-bottom:10px;" class="btn btn-primary btn-flat btn-sm pull-left" type="button" ng-click="export_current_manila();">
+                                        <i class="fa fa-file-excel-o"></i> Export To Excel
+                                    </button> -->
+                                </div>  
+                                <!-- Datatables -->
+                                <table id="voucherList" datatable="" dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance7" class="display compact" style="width:100%"></table>
+                                <!-- /.Datatables -->
+                            </div>    
+                        </div>    
+                    </div>
+                    <!-- /.Row -->
+                </div>
+                <!-- /.Box Body -->
+            </div>
+            <!-- /.Main Box -->
+        </section>
+        <!-- /.Main Content -->
+    </div>
+    <!-- /.Content Wrapper. Contains page content -->
+    <!-- Footer Template -->
+    <div ng-include="footerTemplate"></div>
+    <!-- /.Footer Template -->
+
+
+    <!-- Add Voucher -->
+    <div class="modal fade modal-success" data-backdrop="static" id="addVoucher" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="addVoucher" style="overflow: scroll !important;">
+        <!-- Modal Dialog -->
+	    <div class="modal-dialog modal-lg" role="document">
+            <!-- Modal Content -->
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"><i class="fa fa-pencil-square-o fa-xs"></i> Add Voucher </h4>
+                </div>
+                <!-- /.Modal Header -->
+                <!-- Modal Body -->
+                <div class="modal-body" style="color:#333 !important;background: #ffffff !important">
+                    <!-- Row -->
+				    <div class="row">
+                        <div class="col-md-12">
+							<div class="col-sm-12 table-responsive">
+                                <table class="table" style="margin-bottom: 0px;">
+                                    <table class="table table-bordered" style="margin-bottom: 0px !important;">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: center;">VOUCHER</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                    <tr>
+                                        <table class="table table-bordered" style="margin-bottom: 0px !important;">
+                                            <tbody>
+                                                <tr>
+                                                    <input type="hidden" ng-model="add_voucher_employee_name">
+                                                    <td style="width:35%;">PAYEE:<br/><select class="js-data-example-ajax form-control input_type serverside_employee" style="width:90%;" ng-disabled="isSaving" name="add_voucher_employee_id" select2 ng-model="add_voucher_employee_id" ng-change = "getEmployeeInfo();" ng-disabled="isSaving" required/></select>
+                                                    </td>
+                                                    <td style="width:35%;">DATE:<input type="text" name="voucher_date" ng-model="voucher_date" class="form-control input_type" readonly="readonly" ng-disabled="isSaving" style="background:#fff;" datepicker required/></td>
+                                                    <td style="width:30%;">CONTROL NO.:<input type="hidden" ng-model="voucher_control_no"></td> 
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </tr>
+                                    <tr>
+                                        <table class="table table-bordered" style="margin-bottom: 0px !important;">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="width:70%;">ADDRESS:<textarea style="resize:vertical;" ng-model="add_voucher_address" id="add_voucher_address" name="add_voucher_address" class="form-control input_type capitalize" ng-disabled="isSaving" readonly required/></textarea></td> 
+                                                    <td style="width:30%;">CONTACT NO.:<input type="text" name="add_voucher_contact_no" ng-model="add_voucher_contact_no" class="form-control input_type" ng-disabled="isSaving" maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g,'');" readonly required/></td> 
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </tr>
+                                    <tr>
+                                        <table class="table table-bordered" style="margin-bottom: 0px !important;">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="width:70%;text-align: center;">PARTICULARS</td>
+                                                    <td style="width:30%;text-align: center;">AMOUNT</td> 
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </tr>
+                                    <tr>
+                                        <table class="table table-bordered" style="margin-bottom: 0px !important;">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="col-xs-12 particular_id">
+                                                            <div class="col-xs-9 paddingZero">
+                                                                <textarea style="resize:vertical;width:90%;" ng-model="entry.voucher.particulars[0]" name="entry.voucher.particulars[0]" class="form-control input_type" ng-disabled="isSaving" required/></textarea>
+                                                            </div>
+                                                            <div class="col-xs-3 paddingZero">
+                                                                <input type="text" ng-model="entry.voucher.amount[0]" class="form-control input_type" number-float step="0.01" ng-keyup="calculate_amount();" name="entry.voucher.amount[0]" ng-disabled="isSaving"/>
+                                                            </div>
+                                                        </div>
+                                                        <div id="particular-button" class="col-xs-12 text-right">
+                                                            <button type="button" addparticulars class="cols-xs-12 btn btn-small btn-primary btn-flat"><span class="fa fa-plus-circle"></span></button>
+                                                        </div> 
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </tr>
+                                   
+                                    <tr>
+                                        <table class="table table-bordered" style="margin-bottom: 0px !important;">
+                                            <tbody>
+                                                <tr>
+                                                    <input type = "hidden" ng-model="prepared_by_employee_id">
+                                                    <input type = "hidden" ng-model="prepared_by_employee_name">
+                                                     <td style="width:70%;"><!--ACCOUNT CHARGE:<input type="text" ng-model="voucher_account_charge" class="form-control input_type" name="voucher_account_charge" id="voucher_account_charge" ng-disabled="isSaving" required/>--><p style = "padding-top:20px;">PREPARED BY: {{prepared_by_employee_name}}</p></td> 
+                                                    <td style="width:30%;">TOTAL:<p ng-model="voucher_total" style="text-align: center;font-size: 20px;">{{voucher_total}}</p></td> 
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </tr>
+                                    <tr>
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <!-- <input type = "hidden" ng-model="prepared_by_employee_id">
+                                                    <input type = "hidden" ng-model="prepared_by_employee_name">
+                                                    <td style="width:35%;">
+                                                        PREPARED BY: {{prepared_by_employee_name}}
+                                                    </td> -->
+                                                    <td style="width:35%;">RECEIVED BY:</td> 
+                                                    <td style="width:30%;">APPROVED BY:</td> 
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.Row -->
+                </div>
+                <!-- /.Modal Body -->
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-flat btn-danger pull-left" ng-disabled="isSaving" data-dismiss="modal" data-toggle="modal">Close</button>
+                    <button type="submit" class="btn btn-flat btn-primary" ng-disabled="isSaving" ng-click="addVoucher();">Save</button>
+                </div>
+                <!-- /.Modal Footer --> 
+            </div>
+            <!-- /.Modal Content -->
+        </div>
+        <!-- /.Modal Dialog -->
+    </div>
+    <!-- /.Add Voucher -->
+
+
+    <!-- Edit Voucher -->
+    <div class="modal fade modal-success" data-backdrop="static" id="editVoucher" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="editVoucher" style="overflow: scroll !important;">
+        <!-- Modal Dialog -->
+        <div class="modal-dialog modal-lg" role="document">
+            <!-- Modal Content -->
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"><i class="fa fa-pencil-square-o fa-xs"></i> Edit Voucher </h4>
+                </div>
+                <!-- /.Modal Header -->
+                <!-- Modal Body -->
+                <div class="modal-body" style="color:#333 !important;background: #ffffff !important">
+                    <!-- Row -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-sm-12 table-responsive">
+                                <table class="table" style="margin-bottom: 0px;">
+                                    <table class="table table-bordered" style="margin-bottom: 0px !important;">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: center;">VOUCHER</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                    <tr>
+                                        <table class="table table-bordered" style="margin-bottom: 0px !important;">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="width:35%;">PAYEE:<br/>
+                                                        <input type = "hidden" ng-model = "edit_voucher_id">
+                                                        <input type = "hidden" ng-model = "edit_voucher_employee_name">
+                                                        <select class="js-data-example-ajax form-control input_type serverside_employee" style="width:90%;" ng-disabled="isSaving" name="edit_voucher_employee_id" select2 ng-change = "getEmployeeInfo();" id = "edit_voucher_name_id_text" ng-model="edit_voucher_employee_id" ng-disabled="isSaving" required/> 
+                                                        </select>
+                                                    </td>
+                                                    <td style="width:35%;">DATE:<input type="text" name="edit_voucher_date" ng-model="edit_voucher_date" class="form-control input_type" readonly="readonly" ng-disabled="isSaving" style="background:#fff;" datepicker required/></td>
+                                                    <td style="width:30%;">CONTROL NO.:<input type="hidden" ng-model="edit_voucher_control_no"> <br> 
+                                                    <label style = "font-size:20px;">{{edit_voucher_control_no}}</label></td> 
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </tr>
+                                    <tr>
+                                        <table class="table table-bordered" style="margin-bottom: 0px !important;">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="width:70%;">ADDRESS:<textarea style="resize:vertical;" ng-model="edit_voucher_address" id="edit_voucher_address" name="edit_voucher_address" class="form-control input_type capitalize" ng-disabled="isSaving" readonly required/></textarea></td> 
+                                                    <td style="width:30%;">CONTACT NO.:<input type="text" name="edit_voucher_contact_no" ng-model="edit_voucher_contact_no" class="form-control input_type" ng-disabled="isSaving" maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g,'');" readonly required/></td> 
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </tr>
+                                    <tr>
+                                        <table class="table table-bordered" style="margin-bottom: 0px !important;">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="width:70%;text-align: center;">PARTICULARS</td>
+                                                    <td style="width:30%;text-align: center;">AMOUNT</td> 
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </tr>
+                                    <tr>
+                                        <table class="table table-bordered" style="margin-bottom: 0px !important;">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="col-xs-12 particular_id_edit">
+                                                            <div class="col-xs-9 paddingZero">
+                                                                <textarea style="resize:vertical;width:90%;" ng-model="entry.voucher.particulars[0]" name="entry.voucher.particulars[0]" class="form-control input_type" ng-disabled="isSaving" required/></textarea>
+                                                            </div>
+                                                            <div class="col-xs-3 paddingZero">
+                                                                <input type="text" ng-model="entry.voucher.amount[0]" class="form-control input_type" number-float step="0.01" ng-keyup="calculate_amount_edit();" name="entry.voucher.amount[0]" ng-disabled="isSaving"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-xs-12 particular_id_edit" ng-repeat="(key, value) in entry.get_voucher_particulars">
+                                                            <div class="col-xs-9 paddingZero">
+                                                                <textarea style="resize:vertical;width:90%;" ng-model="entry.voucher.particulars[key]" name="entry.voucher.particulars[key]" class="form-control input_type" ng-disabled="isSaving" required/></textarea>
+                                                            </div>
+                                                            <div class="col-xs-3 paddingZero">
+                                                                <input type="text" ng-model="entry.voucher.amount[key]" class="form-control input_type" number-float step="0.01" name="entry.voucher.amount[key]" ng-disabled="isSaving"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div id="editparticular-button" class="col-xs-12 text-right">
+                                                            <button type="button" editparticulars class="cols-xs-12 btn btn-small btn-primary btn-flat"><span class="fa fa-plus-circle"></span></button>
+                                                        </div> 
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <table class="table table-bordered" style="margin-bottom: 0px !important;">
+                                            <tbody>
+                                                <tr>
+                                                    <input type = "hidden" ng-model="edit_prepared_by_employee_id">
+                                                    <input type = "hidden" ng-model="edit_prepared_by_employee_name">
+                                                    <td style="width:70%;"><!--ACCOUNT CHARGE:<input type="text" ng-model="voucher_account_charge_edit" class="form-control input_type" name="voucher_account_charge_edit" id="voucher_account_charge_edit" ng-disabled="isSaving" required/>--><p style = "padding-top:20px;">PREPARED BY: {{edit_prepared_by_employee_name}}</p></td>
+                                                    <td style="width:30%;">TOTAL:<p ng-model="voucher_total_edit" style="text-align: center;font-size: 20px;">{{voucher_total_edit}}</p></td> 
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </tr>
+                                    <tr>
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <!-- <input type = "hidden" ng-model="edit_prepared_by_employee_id">
+                                                    <input type = "hidden" ng-model="edit_prepared_by_employee_name">
+                                                    <td style="width:35%;">PREPARED BY: {{edit_prepared_by_employee_name}}</td> -->
+                                                    <td style="width:35%;">RECEIVED BY:</td> 
+                                                    <td style="width:30%;">APPROVED BY:</td> 
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.Row -->
+                </div>
+                <!-- /.Modal Body -->
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-flat btn-danger pull-left" ng-disabled="isSaving" data-dismiss="modal" data-toggle="modal">Close</button>
+                    <button type="submit" class="btn btn-flat btn-default" ng-print print-element-id="print_voucher" ng-click="printVoucher(edit_voucher_control_no);"> <i class = "fa fa-print"></i> Print</button>
+                    <button type="submit" class="btn btn-flat btn-danger" data-toggle="modal" data-target="#disapprovedVoucher">Disapproved</button>
+                    <button type="submit" class="btn btn-flat btn-warning" data-toggle="modal" data-target="#confirmVoucher">Approved</button>
+                    <button type="submit" class="btn btn-flat btn-primary" ng-disabled="isSaving" ng-click="editVoucher();">Save</button>
+                </div>
+                <!-- /.Modal Footer --> 
+            </div>
+            <!-- /.Modal Content -->
+        </div>
+        <!-- /.Modal Dialog -->
+    </div>
+    <!-- /.Edit Voucher -->
+
+    <!--Disapproved-->
+    <div class="modal fade modal-success" data-backdrop="static" id="disapprovedVoucher" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="disapprovedVoucher" style="overflow: scroll !important;">
+        <!-- Modal Dialog -->
+        <div class="modal-dialog" role="document">
+            <!-- Modal Content -->
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"><i class="fa fa-ban"></i> Confirmation </h4>
+                </div>
+                <!-- /.Modal Header -->
+                <!-- Modal Body -->
+                <div class="modal-body mx-3" style="color:#333 !important;background: #ffffff !important">
+                    <div class="span5">Are you sure you want to Disapproved?</div>
+                </div>
+                <!-- /.Modal Body -->
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-flat btn-danger pull-left" data-dismiss="modal" data-toggle="modal">Close</button>
+                    <button data-dismiss="modal" type="button" class="btn btn-flat btn-primary" ng-click="disapproved_voucher();"> Save</button>
+                </div>
+                <!-- /.Modal Footer -->
+            </div>
+            <!-- /.Modal Content -->
+        </div>
+        <!-- /.Modal Dialog -->
+    </div>
+    <!--/.Disapproved-->
+
+    <!--Confirm Approved-->
+    <div class="modal fade modal-success" data-backdrop="static" id="confirmVoucher" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="confirmVoucher" style="overflow: scroll !important;">
+        <!-- Modal Dialog -->
+        <div class="modal-dialog" role="document">
+            <!-- Modal Content -->
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"><i class="fa fa-check"></i> Confirmation </h4>
+                </div>
+                <!-- /.Modal Header -->
+                <!-- Modal Body -->
+                <div class="modal-body mx-3" style="color:#333 !important;background: #ffffff !important">
+                    <div class="span5">Are you sure you want to Approve?</div>
+                </div>
+                <!-- /.Modal Body -->
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-flat btn-danger pull-left" data-dismiss="modal" data-toggle="modal">Close</button>
+                    <button data-dismiss="modal" type="button" class="btn btn-flat btn-primary" ng-click="confirm_voucher();"> Save</button>
+                </div>
+                <!-- /.Modal Footer -->
+            </div>
+            <!-- /.Modal Content -->
+        </div>
+        <!-- /.Modal Dialog -->
+    </div>
+    <!--/.Confirm Aprroved-->
+
+
+    <!-- Print -->
+    <div id="print_voucher" class="print-only" style="width: 100% !important">
+        <!-- row -->
+        <div class = "row">
+            <div class="col-xs-12"  style="text-align:center;">
+                <div class = "col-xs-10">
+                    <span style = "font-size:15px;  margin-left:130px;"><b>LANCE&nbsp;GAVIEN&nbsp;SECURITY&nbsp;AGENCY</b></span>
+                    <span style = "font-size:12px; margin-left:130px;"><b>Purok&nbsp;Mabini,&nbsp;Poblacion,&nbsp;Liloan,&nbsp;Cebu</b></span><br>
+                    <span style = "font-size:12px; margin-left:130px;"><b>Tel.&nbsp;No.&nbsp;424-4293&nbsp;TIN:&nbsp;142-291-298-000</b></span>
+                </div>
+            </div>
+
+            <div class = "col-xs-12">
+                <div class="col-xs-12 paddingZero" style="padding-top:15px">
+                    <div class="col-container" style="display: flex;width: 100%;">
+                        <div class="col-xs-12  text-center border" ><label>VOUCHER</label></div>
+                    </div>
+                    <div class="col-container" style="display: flex;width: 100%;">
+                        <div class="col-xs-4 border" ><label>Payee: {{edit_voucher_employee_name}}</label></div>
+                        <div class="col-xs-4 border" ><label>Date: {{edit_voucher_date}}</label></div>
+                        <div class="col-xs-4 border" ><label>Control No.:</label></div>
+                    </div>
+
+                    <div class="col-container" style="display: flex;width: 100%;">
+                        <div class="col-xs-8 border" ><label>Address:</label></div>
+                        <div class="col-xs-4 border" ><label>Contact No.:</label></div>
+                    </div>
+                    <div class="col-container" style="display: flex;width: 100%;">
+                        <div class="col-xs-8  text-center border" ><label>PARTICULARS</label></div>
+                        <div class="col-xs-4  text-center border" ><label>AMOUNT</label></div>
+                    </div>
+                    <div class="col-container" style="display: flex;width: 100%;">
+                        <div class="col-xs-8 border" ><label>Account Charge:</label></div>
+                        <div class="col-xs-4 border" ><label>Total:</label></div>
+                    </div>
+                    <div class="col-container" style="display: flex;width: 100%;">
+                        <div class="col-xs-4 border" ><label>Prepared By:</label></div>
+                        <div class="col-xs-4 border" ><label>Received By:</label></div>
+                        <div class="col-xs-4 border" ><label>Approved By:</label></div>
+                    </div>
+                </div>
+                
+            </div>
+
+
+        </div>
+        <!--/. row-->
+    </div>
+
+
+
+
+</div>
+<!-- /.Wrapper -->
+
+<!-- CSS -->
+<style rel="stylesheet">
+#voucherList th {
+    background-color: #4CAF50;
+    font-weight: 600;
+}
+#voucherList td {
+    font-size: 12px;
+}
+.voucher {
+    font-weight: 500;
+    text-align: center;
+}
+.voucherdate {
+    width: 70%;
+    font-weight: 500;
+}
+.input_type {
+    height: 35px !important;
+}
+.paddingZero { 
+    padding:0
+}
+.print-only{
+        display: none;
+    }
+
+    @media print {
+        .no-print {
+            display: none;
+        }
+
+        .print-only{
+            display: block;
+        }
+}
+.border{ border:1px solid #000000}
+.margin{ margin-bottom: 1%;}
+.inputBorders{border-bottom: none; border-right: none; border-top: none; }
+.inputcolor::-webkit-input-placeholder{color: #000 !important; font-family:Georgia, "Times New Roman", Times, serif; font-weight:bold}
+.txtresize{ resize:vertical;  min-height:110px !important; }	
+.readonly{
+    background: white !important;
+}
+/*Parts Table*/
+.col-container {
+    display: table;
+    width: 100%;
+}
+.col {
+    display: table-cell;
+}
+.capitalize{
+    text-transform:capitalize;
+}
+</style>
+<!-- /.CSS -->
+<!-- Javascript src  -->
+<script src="frontend/dependencies/bower_components/function/serverSideDropdown.js"></script>
+<!-- /.Javascript src -->

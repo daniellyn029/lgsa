@@ -1,0 +1,59 @@
+<!-- Header -->
+<header class="main-header">
+    <!-- Logo -->
+    <a class="logo" style="padding:0;">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><img src="frontend/assets/images/login/minilogo.png"></span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg">LGSA PORTAL</span>
+    </a>
+    <!-- /.Logo -->
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toogle button -->
+        <a href="" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
+        <!-- /.Sidebar toogle button -->
+        <!-- Navbar custom menu -->
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <!-- User Account: style can be found in dropdown.less -->
+                <li class="dropdown user user-menu">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                        <img ng-src="frontend/assets/images/profile_pic/{{collectableslist.values.collectableslistInformation.profile_pic}}" class="user-image" alt="User Image" onerror="this.src='frontend/assets/images/profile_pic/user-icon.png'">
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- User Image -->
+                        <li class="user-header" style="height:190px !important">
+                            <img ng-src="frontend/assets/images/profile_pic/{{collectableslist.values.collectableslistInformation.profile_pic}}" class="img-circle" alt="User Image" onerror="this.src='frontend/assets/images/profile_pic/user-icon.png'">
+                            <p>
+                                {{collectableslist.values.collectableslistInformation.first_name+' '+collectableslist.values.collectableslistInformation.last_name | capitalize_first}}
+                                <small>{{collectableslist.values.collectableslistInformation.account_type | capitalize_first}}</small>
+                            </p>
+                        </li>
+                        <!-- /.User Image -->
+                        <!-- Menu Footer -->
+                        <li class="user-footer" style="background-color:rgb(34, 45, 50)">
+                            <div class="pull-left">
+                                <a class="btn btn-default btn-flat" data-target="#changePasswordModal" data-toggle="modal" ng-click="changePasswordView(collectableslist.values.collectableslistInformation);">Change Password</a>
+                            </div>
+                            <div class="pull-right" ng-click="logOut();">
+                                <a class="btn btn-default btn-flat">Log Out</a>
+                            </div>
+                        </li>
+                        <!-- /.Menu Footer -->
+                    </ul>
+                </li>
+                <!-- /.User Account: style can be found in droopdown.less -->
+            </ul>
+        </div>
+        <!-- /.Navbar custom menu -->
+    </nav>
+    <!-- /.Header Navbar: style can be found in header.less -->    
+</header>
+<!-- /.Header -->
+
+<!-- Change Password Template -->
+<div ng-include="changePasswordTemplate"></div>
+<!-- /.Change Password Template -->

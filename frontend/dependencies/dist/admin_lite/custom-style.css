@@ -1,0 +1,234 @@
+/** Body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 **/
+body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 400;
+}
+/** eForms - Forms Panel **/
+.forms:hover{
+  color: #fff;
+  transform: scale(1.1);
+  transition: transform 0.5s;
+}
+.formname {
+  position: relative;
+  color: #00a65a !important;
+}
+.formname:after {
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 0;
+  height: 10px;
+  background-color: #00a65a !important;
+  content: "";
+  transition: width 0.5s;
+}
+.formname:hover {
+  color: #00a65a !important;
+}
+.formname:hover:after {
+  width: 100%;
+}
+/** Button **/
+a.waves-effect, a.waves-light {
+  display: inline-block;
+}
+.waves-effect {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+/** Datatable **/
+#currentOldListManila,#currentNewListManila,#currentOldListCebu,#currentNewListCebu,
+#currentOldListBacolod,#currentNewListBacolod,#currentOldListPampanga,
+#currentNewListPampanga,#currentOldListBdo,#currentNewListBDO,
+#currentOldListDavao,#currentNewListDavao,#currentNewListClient,#parts_request_logs_client,#parts_request_logs_cebu,#parts_request_logs_bdo,
+#status_logs_manila,#page_count_logs_manila,#status_logs_bdo,#page_count_logs_bdo,#status_logs_cebu,#page_count_logs_cebu,
+#archiveOldListManila,#archiveNewListManila,#archiveOldListBacolod,#archiveOldListPampanga,#archiveOldListDavao,#archiveNewListBDO,
+#archiveOldListCebu,#archiveNewListCebu,#archiveOldListBdo,#reportOldListManila,#reportsNewListManila,#reportsNewListBDO,
+#reportOldListCebu,#reportsNewListCebu,#reportOldListBacolod,#reportOldListPampanga,
+#reportOldListDavao,#reportOldListBdo,#accountList th, td{
+  font-size: 11px;
+}
+table.dataTable.compact thead th, table.dataTable.compact thead td {
+  padding: 4px;
+}
+.dt-buttons {
+  float: right !important;
+}
+td.company-class{
+  width: auto;
+  max-width: 130px;
+  overflow: auto;
+}
+td.department-class{
+  width: auto;
+  max-width: 130px;
+  overflow: auto; 
+}
+.badge-red{
+  /* color: #fff;
+  background-color: #d9534f;
+  border-color: #d43f3a; */
+  color: #fff;
+  background-color: #d58512;
+  border-color: #985f0d;
+}
+/** Override Default style of Boostrap for this Theme**/
+.btn{
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.02),0 1px 5px 0 rgba(0,0,0,.12)  !important;
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.02),0 1px 5px 0 rgba(0,0,0,.12)  !important; 
+  -moz-box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.02),0 1px 5px 0 rgba(0,0,0,.12)  !important;
+}
+.btn-success {
+  background-color: #00a65a;
+  border-color: #008d4c;
+}
+/** DateTime Picker **/
+.datepicker-switch{
+  background: #00a65a !important;
+  color: white;
+}
+
+.table-condensed .prev{
+  background: #00a65a !important;
+  color: white;
+}
+
+.table-condensed .next{
+  background: #00a65a !important;
+  color: white;
+}
+
+.active.day{
+  background: #00a65a !important;
+}
+.ui-datepicker-month, .ui-datepicker-year{
+  color:black;
+}
+.ti_tx,
+.mi_tx,
+.mer_tx {
+  width: 100%;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.time,
+.mins,
+.meridian {
+  width: 60px;
+  float: left;
+  margin: 0 10px;
+  font-size: 20px;
+  color: #2d2e2e;
+  font-family: arial;
+  font-weight: 700;
+}
+
+.birthdate .prev,
+.birthdate .next {
+  cursor: pointer;
+  padding: 18px;
+  width: 28%;
+  border: 1px solid #ccc;
+  margin: auto;
+  background: url(../datetimepicker/images/arrow.png) no-repeat;
+  border-radius: 5px;
+}
+
+.birthdate .prev:hover,
+.birthdate .next:hover {
+  background-color: #ccc;
+}
+
+.birthdate .next {
+  background-position: 50% 150%;
+}
+
+.birthdate .prev {
+  background-position: 50% -50%;
+}
+
+.time_pick {
+  position: relative;
+}
+
+.timepicker_wrap {
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 998;
+  display: none;
+  box-shadow: 2px 2px 5px 0 rgba(50,50,50,0.35);
+  background: #f6f6f6;
+  border: 1px solid #ccc;
+  float: left;
+  position: absolute;
+  top: 27px;
+  left: 0;
+}
+
+.arrow_top {
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  background: url(../datetimepicker/images/top_arr.png) no-repeat;
+  width: 18px;
+  height: 10px;
+  z-index: 999;
+}
+input.timepicki-input {
+  background: none repeat scroll 0 0 #FFFFFF;
+  border: 1px solid #CCCCCC;
+  border-radius: 5px 5px 5px 5px;
+  float: none;
+  margin: 0;
+  text-align: center;
+  width: 70%;
+}
+a.reset_time {
+  float: left;
+  margin-top: 5px;
+  color: #000;
+}
+/** MULTIPLE SELECT **/
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+  background-color: #3c8dbc;
+  border-color: #367fa9;
+  color: #fff;
+}
+.select2-container--default.select2-container--focus .select2-selection--multiple, .select2-container--default .select2-search--dropdown .select2-search__field {
+  border-color: #3c8dbc !important;
+}
+.select2-selection__rendered{
+  padding-bottom: 5px;
+}
+/** ClearFix **/
+.clearFix {
+  clear: both;
+}
+/** Parts Status **/
+.drinvoice{
+  background-color: #FF748C;
+}
+/** Sidebar **/
+::-webkit-scrollbar{
+  height:10px;
+  width:10px;
+  border-radius: 4px;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+::-webkit-scrollbar:hover{
+  background: #c6c7ca;
+}
+::-webkit-scrollbar-thumb{
+  background: #777779;
+  border-radius: 4px;
+}

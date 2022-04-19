@@ -1,0 +1,907 @@
+<!-- Wrapper -->
+<div class="wrapper" ng-controller="guardsController" ng-init="guards.active();">
+    <spinner name="guardsSpinner" ng-cloak="">
+        <div class="overlay"></div>
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+        <div class="please-wait">Please wait...</div>
+    </spinner>
+    <!-- Header Template-->
+    <div ng-include="headerTemplate"></div>
+    <!-- /.Header Template-->
+    <!-- Left Navigation Template -->
+    <div ng-include="leftNavigationTemplate"></div>
+    <!-- /.Left Navigation Template -->
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Guards
+                <small>List</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <a>
+                        <i class="fa fa-users"></i>
+                        <span>Guards</span> 
+                    </a>    
+                </li>
+            </ol>
+        </section>
+        <!-- /.Content Header (Page header) -->
+        <!-- Main Content -->
+        <section class="content">
+            <!-- Continue Codes Here -->
+            <!-- Main Box -->
+            <div class="box box-success">
+                <!-- Box Header -->
+                <div class="box-header with-border">
+                    <h3 class="box-title">G-List</h3>
+                </div>
+                <!-- /.Box Header -->
+                <!-- Box Body -->
+                <div class="box-body">
+                    <!-- Row -->
+                    <div class="row">                             
+                        <div class="col-md-12" ng-init="guardsList();">
+                            <div class="search-input-wrapper">	  
+                                <div class="btn-toolbar">
+                                    <!-- <button id="btn_refresh_current_new_manila" style="margin-bottom:10px;" class="btn btn-flat btn-danger pull-right btn-sm" ng-click="dtInstance2.reloadData()" title="Refresh">
+                                        <i class="fa fa-refresh fa-lg" style="padding:3px"></i>Refresh
+                                    </button>
+                                    <button title="Search" style="margin-bottom:10px;" class="btn btn-success btn-flat btn-sm pull-right" type="button" data-toggle="modal" data-target="#search_current_manila" ng-click="search_current_manila()">
+                                        <i class="fa fa fa-search fa-lg"></i> Search
+                                    </button>
+                                    <button title="Create Request" style="margin-bottom:10px;" class="btn btn-primary btn-flat btn-sm pull-right" type="button" ng-click="createRequestShow_manila();" data-toggle="modal" data-target="#createRequest_manila">
+                                        <i class="fa fa-plus-circle fa-lg"></i> Create Request
+                                    </button>
+                                    <button style="margin-bottom:10px;" class="btn btn-primary btn-flat btn-sm pull-left" type="button" ng-click="export_current_manila();">
+                                        <i class="fa fa-file-excel-o"></i> Export To Excel
+                                    </button> -->
+                                </div>  
+                                <!-- Datatables -->
+                                <table id="guardsList" datatable="" dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance2" class="display compact" style="width:100%"></table>
+                                <!-- /.Datatables -->
+                            </div>    
+                        </div>    
+                    </div>
+                    <!-- /.Row -->
+                </div>
+                <!-- /.Box Body -->
+            </div>
+            <!-- /.Main Box -->
+        </section>
+        <!-- /.Main Content -->
+    </div>
+    <!-- /.Content Wrapper. Contains page content -->
+    <!-- Footer Template -->
+    <div ng-include="footerTemplate"></div>
+    <!-- /.Footer Template -->
+
+
+    <!-- Modal for Add Guard Accounts -->
+    <div class="modal fade modal-success" data-backdrop="static" id="addGuard" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="addGuard" style="overflow: scroll !important;">
+        <!-- Modal Dialog -->
+        <div class="modal-dialog modal-lg" role="document">
+            <!-- Modal Content -->
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"><i class="fa fa-pencil-square-o fa-xs" aria-hidden="true"></i> Add Guard</h4>
+                </div>
+                <!-- /.Modal Header -->
+                <!-- Modal Body -->
+                <div class="modal-body" style="color:#333 !important;background:#ffffff !important">
+                    <!-- row -->
+                    <div class = "row">
+                        <form name="myForm" id="myform" novalidate>
+                            <!-- Div Content -->
+                            <div class="account-content">
+                                <!--Upload Image-->
+                                <div class="col-md-12">
+                                    <div class="col-md-3"></div>
+                                        <div class="col-md-6">
+                                            <div class="profile-pic" style="padding: 15px;text-align: center;">
+                                                <img class="img-responsive img-thumbnail img-circle" id="add_picFile" ngf-thumbnail="!add_picFile ? add_prof_pic : add_picFile" alt="" style="margin-bottom: 15px;width:120px;height:120px;cursor:pointer">                          
+                                                <input class="form-control" type="file" ngf-select ng-model="add_picFile" id="add_file" name="file" accept="image/*" ng-disabled="isSaving"/>                                               
+                                            </div>
+                                        </div>
+                                    <div class="col-md-3"></div>
+                                </div> 
+                                <!--/.Upload Image-->
+
+                                <!-- Employee ID -->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <!--Employee ID -->
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="add_employeeid">Employee ID:<i style="color:#f90000" ng-show="myForm.add_employeeid.$error.required">*</i></label>
+                                        <input type="text" name="add_employeeid" ng-model="add_employeeid" class="form-control" placeholder="Employee ID" ng-disabled="isSaving" required/>
+                                    </div>
+                                </div>  
+                                <!-- /.Employee ID -->
+                                <!-- First Name -->
+                                <div class ="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="add_firstname">First name:<i style="color:#f90000" ng-show="myForm.add_firstname.$error.required">*</i></label>
+                                        <input type="text" name="add_firstname" ng-model="add_firstname" class="form-control capitalize" placeholder="First name" ng-disabled="isSaving" required/>
+                                    </div>
+                                    <!-- /.First Name -->
+                                    <!-- Middle Name -->
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="add_middlename">Middle name:<i style="color:#f90000" ng-show="myForm.add_middlename.$error.required">*</i></label>
+                                        <input type="text" name="add_middlename" ng-model="add_middlename" class="form-control capitalize" placeholder="Middle name" ng-disabled="isSaving" required/>
+                                    </div>
+                                    <!-- /.Middle Name -->
+                                </div>
+                                <!-- Last Name / Contact Number-->
+                                <div class = "col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="add_lastname">Last name:<i style="color:#f90000" ng-show="myForm.add_lastname.$error.required">*</i></label>
+                                        <input type="text" name="add_lastname" ng-model="add_lastname" class="form-control capitalize" placeholder="Last name" ng-disabled="isSaving" required/>
+                                    </div>
+                                    <!-- /.Last Name -->
+                                    <!-- Suffix -->
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="add_suffix">Suffix:</label>
+                                        <select style="width:100%;padding:5px;" class="form-control select2" ng-disabled="isSaving" name="add_suffix" select2 ng-model="add_suffix">
+                                            <option value="">-- SELECT --</option>
+                                            <option value="Jr">Jr</option>
+                                            <option value="Sr">Sr</option>
+                                            <option value="II">II</option>
+                                            <option value="III">III</option>
+                                            <option value="IV">IV</option>
+                                        </select>
+                                    </div>
+                                    <!-- /.Suffix -->
+                                </div>
+                                <!--Present Address-->
+                                <div class = "col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-12">
+                                        <label class="control-label" for="add_present_address">Present Address:<i style="color:#f90000" ng-show="myForm.add_present_address.$error.required">*</i></label>
+                                        <input type="text" name="add_present_address" ng-model="add_present_address" class="form-control capitalize" placeholder="Present Address" ng-disabled="isSaving" required/>
+                                    </div>
+                                </div>
+                                <!--Provincial Address-->
+                                <div class = "col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-12">
+                                        <label class="control-label" for="add_provincial_address">Provincial Address:<i style="color:#f90000" ng-show="myForm.add_provincial_address.$error.required">*</i></label>
+                                        <input type="text" name="add_provincial_address" ng-model="add_provincial_address" class="form-control capitalize" placeholder="Provincial Address" ng-disabled="isSaving" required/>
+                                    </div>
+                                </div>
+                                <!-- Gender Birthdate Age Birthplace -->
+                                <div class = "col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-3">
+                                        <label class="control-label" for="add_gender">Gender:<i style="color:#f90000" ng-show="myForm.add_gender.$error.required">*</i></label>
+                                        <select style="width:100%;padding:5px;" class="form-control select2" ng-disabled="isSaving" name="add_gender" select2 ng-model="add_gender" required >
+                                            <option value="Male">MALE</option>
+                                            <option value="Female">FEMALE</option>
+                                        </select>
+                                    </div>
+                                    <!-- /.Gender -->
+                                    <!-- Birthdate -->
+                                    <div class="col-sm-3">
+                                        <label class="control-label birthdate" for="add_birthdate">Birthdate:<i style="color:#f90000" ng-show="myForm.add_birthdate.$error.required">*</i></label>
+                                        <input type="text" name="add_birthdate" ng-model="add_birthdate" class="form-control" placeholder="Birthdate" readonly="readonly" ng-disabled="isSaving" style="background:#fff;" datepicker required/>
+                                    </div>
+                                    <!-- /.Birthdate -->
+                                    <!-- Age -->
+                                    <div class="col-sm-3">
+                                        <label class="control-label age" for="add_age">Age:<i style="color:#f90000" ng-show="myForm.add_gender.$error.required">*</i></label>
+                                        <input type="text" name="add_age" ng-model="add_age" class="form-control" oninput="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="Age" ng-disabled="isSaving" style="background:#fff;" required/>
+                                    </div>
+                                    <!-- /.Age -->
+
+                                    <!-- Birthplace -->
+                                    <div class="col-sm-3">
+                                        <label class="control-label" for="add_birthplace">Birthplace:<i style="color:#f90000" ng-show="myForm.add_birthplace.$error.required">*</i></label>
+                                        <input type="text" maxlength="30" id="add_birthplace" ng-model="add_birthplace" name="add_birthplace" class="form-control capitalize" placeholder="Birthplace" ng-disabled="isSaving" required/>
+                                    </div>
+                                    <!-- /.Birthplace -->
+                                </div>
+                                <!-- Emergency to Notify/ Relationship-->
+                                <div class ="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="add_emergency">Incase of Emergency Notify:<i style="color:#f90000" ng-show="myForm.add_emergency.$error.required">*</i></label>
+                                        <input type="text" name="add_emergency" ng-model="add_emergency" class="form-control capitalize" placeholder="Incase of Emergency Notify" ng-disabled="isSaving" required/>
+                                    </div>
+                                    <!-- /.Emergency -->
+                                    <!-- Relationship -->
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="add_relationship">Relationship:<i style="color:#f90000" ng-show="myForm.add_relationship.$error.required">*</i></label>
+                                        <input type="text" name="add_relationship" ng-model="add_relationship" class="form-control capitalize" placeholder="Relationship" ng-disabled="isSaving" required/>
+                                    </div>
+                                    <!-- /.Relationship -->
+                                </div>
+                                <!-- Address /Contact Number-->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="add_emeradd">Address:<i style="color:#f90000" ng-show="myForm.add_emeradd.$error.required">*</i></label>
+                                        <input type="text" name="add_emeradd" ng-model="add_emeradd" class="form-control capitalize" placeholder="Address" ng-disabled="isSaving" required/>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="add_emernum">Cellphone Number:<i style="color:#f90000" ng-show="myForm.add_emernum.$error.required">*</i></label>
+                                        <input type="text" name="add_emernum" ng-model="add_emernum" class="form-control" placeholder="Cellphone Number" ng-disabled="isSaving" maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g,'');" required/>
+                                    </div>
+                                </div>
+                                <!-- Height/Weight/Cp Num-->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-3">
+                                        <label class="control-label" for="add_height">Height:</label>
+                                        <input type="text" name="add_height" ng-model="add_height" class="form-control" placeholder="Height" ng-disabled="isSaving" />
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="control-label" for="add_weight">Weight:</label>
+                                        <input type="text" name="add_weight" ng-model="add_weight" class="form-control" placeholder="Weight" ng-disabled="isSaving" />
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="add_cpnum">Cellphone Number:<i style="color:#f90000" ng-show="myForm.add_cpnum.$error.required">*</i></label>
+                                        <input type="text" name="add_cpnum" ng-model="add_cpnum" class="form-control" placeholder="Cellphone Number" ng-disabled="isSaving" maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g,'');" required/>
+                                    </div>
+                                </div>
+                                <!--Marital Status / Name of Spouse-->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <!-- Civil Status -->
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="add_civil_status">Civil Status:<i style="color:#f90000" ng-show="myForm.add_civil_status.$error.required">*</i></label>
+                                        <select style="width:100%;padding:5px;" class="form-control select2" ng-disabled="isSaving"  select2 name="add_civil_status" ng-model="add_civil_status" required >
+                                            <option value="Single">SINGLE</option>
+                                            <option value="Married">MARRIED</option>
+                                            <option value="Widowed">WIDOWED</option>
+                                            <option value="Separated">SEPARATED</option>
+                                        </select>
+                                    </div> 
+                                    <!-- /.Civil Status -->
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="add_spouse">Name of Spouse:</label>
+                                        <input type="text" name="add_spouse" ng-model="add_spouse" class="form-control capitalize" placeholder="Name of Spouse" ng-disabled="isSaving" />
+                                    </div>
+                                </div>
+                                <!--Address-->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-12">
+                                        <label class="control-label" for="add_spouse_add">Address:</label>
+                                        <input type="text" name="add_spouse_add" ng-model="add_spouse_add" class="form-control capitalize" placeholder="Address" ng-disabled="isSaving" />
+                                    </div>
+                                </div>
+                                <!--No of Person Supported / Relationship-->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="add_supported">No. of Person Supported By You:</label>
+                                        <input type="text" name="add_supported" ng-model="add_supported" class="form-control" placeholder="No. of Person Supported By You" ng-disabled="isSaving" number-only />
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="add_supp_rel">Relationship:</label>
+                                        <input type="text" name="add_supp_rel" ng-model="add_supp_rel" class="form-control capitalize" placeholder="Relationship" ng-disabled="isSaving" />
+                                    </div>
+                                </div>
+                                <!--Kind of work / Salary Exp / Introduced By-->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-4">
+                                        <label class="control-label" for="add_work_desire">Kind of Work Desire:</label>
+                                        <input type="text" name="add_work_desire" ng-model="add_work_desire" class="form-control capitalize" placeholder="Kind of Work Desire" ng-disabled="isSaving"/>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="control-label" for="add_sal_exp">Salary Expected:<i style="color:#f90000" ng-show="myForm.add_sal_exp.$error.required">*</i></label>
+                                        <input type="text" name="add_sal_exp" ng-model="add_sal_exp" class="form-control" number-float step="0.01" placeholder="Salary Expected" ng-disabled="isSaving" number-only required/>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="control-label" for="add_intro">Introduced By:</label>
+                                        <input type="text" name="add_intro" ng-model="add_intro" class="form-control capitalize" placeholder="Introduced By" ng-disabled="isSaving" />
+                                    </div>
+                                </div>
+                                <!--Favorite Hobby-->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-12">
+                                        <label class="control-label" for="add_hob_rec">What Is Your Favorite Hobby or Recreation?:</label>
+                                        <input type="text" name="add_hob_rec" ng-model="add_hob_rec" class="form-control capitalize" placeholder="What Is Your Favorite Hobby or Recreation?" ng-disabled="isSaving"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" style="margin-top:20px; font-size:20px; text-align:center;">
+                                        <b>SCHOOL RECORDS</b>
+                                </div>
+                                <!--School Records-->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                            <th></th>
+                                            <th style ="text-align: center;" >Name of School</th>
+                                            <th style ="text-align: center;">Year Graduated</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>                                  
+                                                    <b style = "font-size:15px;">Elementary:
+                                                        <i style="color:#f90000" ng-show="myForm.add_elem_scho.$error.required">*</i><i style="color:#f90000" ng-show="myForm.add_elem_year.$error.required">*</i>
+                                                    </b>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="add_elem_scho" ng-model="add_elem_scho" class="form-control col-sm-4 capitalize" placeholder="Name of School" ng-disabled="isSaving" required/>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="add_elem_year" ng-model="add_elem_year" class="form-control col-sm-4" placeholder="Year Graduated" ng-disabled="isSaving" required/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>                                  
+                                                    <b style = "font-size:15px;">High School:
+                                                        <i style="color:#f90000" ng-show="myForm.add_high_scho.$error.required">*</i><i style="color:#f90000" ng-show="myForm.add_high_year.$error.required">*</i>
+                                                    </b>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="add_high_scho" ng-model="add_high_scho" class="form-control col-sm-4 capitalize" placeholder="Name of School" ng-disabled="isSaving" required/>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="add_high_year" ng-model="add_high_year" class="form-control col-sm-4" placeholder="Year Graduated" ng-disabled="isSaving" required/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>                                  
+                                                    <b style = "font-size:15px;">College/University:</b>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="add_coll_scho" ng-model="add_coll_scho" class="form-control col-sm-4 capitalize" placeholder="Name of School" ng-disabled="isSaving"/>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="add_coll_year" ng-model="add_coll_year" class="form-control col-sm-4" placeholder="Year Graduated" ng-disabled="isSaving"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>                                  
+                                                    <b style = "font-size:15px;">Degree Finished:</b>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="add_deg_scho" ng-model="add_deg_scho" class="form-control col-sm-4 capitalize" placeholder="Name of School" ng-disabled="isSaving"/>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="add_deg_year" ng-model="add_deg_year" class="form-control col-sm-4" placeholder="Year Graduated" ng-disabled="isSaving"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>                                  
+                                                    <b style = "font-size:15px;">Vocational:</b>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="add_vo_scho" ng-model="add_vo_scho" class="form-control col-sm-4 capitalize" placeholder="Name of School" ng-disabled="isSaving"/>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="add_vo_year" ng-model="add_vo_year" class="form-control col-sm-4" placeholder="Year Graduated" ng-disabled="isSaving"/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-12" style="margin-top:20px; font-size:20px; text-align:center;">
+                                        <b>APPLICANTS WORK EXPERIENCE</b>
+                                </div>
+                                <!--Previous Employer-->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="add_prev_emp">Previous Employer:</label>
+                                        <input type="text" name="add_prev_emp" ng-model="add_prev_emp" class="form-control capitalize" placeholder="Previous Employer" ng-disabled="isSaving" />
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="add_prev_add">Address:</label>
+                                        <input type="text" name="add_prev_add" ng-model="add_prev_add" class="form-control capitalize" placeholder="Address" ng-disabled="isSaving" />
+                                    </div>
+                                </div>
+                                <!-- Date of Employment -->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-4">
+                                        <label class="control-label" for="add_from">Date of Employment From:</label>
+                                        <input type="text" name="add_from" ng-model="add_from" class="form-control" placeholder="From" readonly="readonly" ng-disabled="isSaving" style="background:#fff;" datepicker/>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="control-label" for="add_to">To:</label>
+                                        <input type="text" name="add_to" ng-model="add_to" class="form-control" placeholder="To" readonly="readonly" ng-disabled="isSaving" style="background:#fff;" datepicker />
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="control-label" for="add_salar">Salary:</label>
+                                        <input type="text" name="add_salar" ng-model="add_salar" class="form-control" number-float step="0.01" placeholder="Salary" ng-disabled="isSaving" number-only />
+                                    </div>
+                                </div>
+                                    <!-- Nature of Work Done -->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-12">
+                                        <label class="control-label" for="add_work_done">Nature of Work Done:</label>
+                                        <input type="text" name="add_work_done" ng-model="add_work_done" class="form-control capitalize" placeholder="Nature of Work Done"  ng-disabled="isSaving" />
+                                    </div>
+                                </div>
+                                <!-- Reason for Leaving -->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-12">
+                                        <label class="control-label" for="add_reas_leav">Reason for Leaving:</label>
+                                        <input type="text" name="add_reas_leav" ng-model="add_reas_leav" class="form-control capitalize" placeholder="Reason for Leaving"  ng-disabled="isSaving" />
+                                    </div>
+                                </div>
+                                <!-- SSS/ Philhealth/ Pagibig / Tax -->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-3">
+                                        <label class="control-label" for="add_sss">SSS ID No:</label>
+                                        <input type="text" name="add_sss" id="add_sss" ng-model="add_sss" class="form-control" placeholder="SSS ID No."  ng-disabled="isSaving"  numbers-only />
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="control-label" for="add_philhealth">Philhealth No:</label>
+                                        <input type="text" name="add_philhealth" id="add_philhealth" ng-model="add_philhealth" class="form-control" placeholder="Philhealth No."  ng-disabled="isSaving" numbers-only />
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="control-label" for="add_pagibig">Pagibig No:</label>
+                                        <input type="text" name="add_pagibig" id="add_pagibig" ng-model="add_pagibig" class="form-control" placeholder="Pagibig No."  ng-disabled="isSaving" numbers-only />
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="control-label" for="add_tax">Tax Identification No:</label>
+                                        <input type="text" name="add_tax" id="add_tax" ng-model="add_tax" class="form-control" placeholder="Tax Identification No."  ng-disabled="isSaving" numbers-only />
+                                    </div>
+                                </div>
+                                <!-- Date Hire/ Status -->
+                                <div class = "col-md-12" style="margin-top:10px">
+                                    <!-- Date Hired -->
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="add_date_hired">Date Hired:</label>
+                                        <input type="text" name="add_date_hired" ng-model="add_date_hired" class="form-control" placeholder="Date Hired" readonly="readonly" ng-disabled="isSaving" style="background:#fff;" datepicker/>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="add_status">Status:</label>
+                                        <select style="width:100%;padding:5px;" class="form-control select2" ng-disabled="isSaving" name="add_status" select2 ng-model="add_status">
+                                            <option value="Applicant">APPLICANT</option>
+                                            <option value="Active">ACTIVE</option>
+                                            <option value="Awol">AWOL</option>
+                                            <option value="Blocked">BLOCKED</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.Div Content -->
+                        </form>
+                    </div>
+                    <!-- row -->
+                </div>
+                <!-- /.Modal Body -->
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-flat btn-danger pull-left" data-dismiss="modal" ng-disabled="isSaving">Close</button>
+                    <button type="submit" class="btn btn-flat btn-primary" ng-click="addaccountsave(add_picFile);">Save</button>
+                </div>
+                <!-- /.Modal Footer -->
+            </div>
+            <!-- /.Modal Content -->
+        </div>
+        <!-- /.Modal Dialog -->
+    </div>
+    <!-- /.Modal for Add Guard Accounts -->
+
+    <!-- Modal for Edit Guard Accounts -->
+    <div class="modal fade modal-success" data-backdrop="static" id="editGuard" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="edit_guard" style="overflow: scroll !important;">
+        <!-- Modal Dialog -->
+        <div class="modal-dialog modal-lg" role="document">
+            <!-- Modal Content -->
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"><i class="fa fa-pencil-square-o fa-xs" aria-hidden="true"></i> Edit Guard</h4>
+                </div>
+                <!-- /.Modal Header -->
+                <!-- Modal Body -->
+                <div class="modal-body" style="color:#333 !important;background:#ffffff !important">
+                    <!-- row -->
+                    <div class = "row">
+                        <form name="editmyForm" id="editmyform" novalidate>
+                            <!-- Div Content -->
+                            <div class="account-content">
+                                <!--Upload Image-->
+                                <div class="col-md-12">
+                                    <div class="col-md-3"></div>
+                                        <div class="col-md-6">
+                                            <div class="profile-pic" style="padding: 15px;text-align: center;">
+                                                <img class="img-responsive img-thumbnail img-circle" id="edit_picFile" ngf-thumbnail="!edit_picFile ? edit_prof_pic : edit_picFile" alt="" style="margin-bottom: 15px;width:120px;height:120px;cursor:pointer" src="frontend/assets/images/profile_pic/user-icon.png">                          
+                                                <input class="form-control ng-pristine ng-untouched ng-valid ng-empty" type="file" ngf-select="" ng-model="edit_picFile" id="edit_file" name="file" accept="image/*" ng-disabled="isSaving">                                            
+                                            </div>
+                                        </div>
+                                    <div class="col-md-3"></div>
+                                </div> 
+                                <!--/.Upload Image-->
+
+                                <!-- Employee ID -->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <input type = "hidden" ng-model = "edit_id">
+                                    <!--Employee ID -->
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="edit_employeeid">Employee ID:<i style="color:#f90000" ng-show="editmyForm.edit_employeeid.$error.required">*</i></label>
+                                        <input type="text" name="edit_employeeid" ng-model="edit_employeeid" class="form-control" placeholder="Employee ID" ng-disabled="isSaving" required/>
+                                    </div>
+                                    <!--Company/Posting Area-->
+                                    <div class="col-sm-6">
+                                        <input type="hidden" ng-model="edit_client_name">
+                                        <label class="control-label" for="edit_posting_area">Posting Area:</label>
+                                        <select class="js-data-example-ajax form-control input_type serverside_client" style="width:100%;" id="edit_client_name_text" ng-disabled="isSaving" name="edit_client_name_id" select2 ng-model="edit_client_name_id" ng-disabled="isSaving"/></select>
+                                    </div>
+                                </div>  
+                                <!-- /.Employee ID -->
+                                <!-- First Name Middle Name-->
+                                <div class ="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="edit_firstname">First name:<i style="color:#f90000" ng-show="editmyForm.edit_firstname.$error.required">*</i></label>
+                                        <input type="text" name="edit_firstname" ng-model="edit_firstname" class="form-control capitalize" placeholder="First name" ng-disabled="isSaving" required/>
+                                    </div>
+                                    <!-- /.First Name -->
+                                    <!-- Middle Name -->
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="edit_middlename">Middle name:<i style="color:#f90000" ng-show="editmyForm.edit_middlename.$error.required">*</i></label>
+                                        <input type="text" name="edit_middlename" ng-model="edit_middlename" class="form-control capitalize" placeholder="Middle name" ng-disabled="isSaving" required/>
+                                    </div>
+                                    <!-- /.Middle Name -->
+                                </div>
+                                <!-- Last Name / Contact Number-->
+                                <div class = "col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="edit_lastname">Last name:<i style="color:#f90000" ng-show="editmyForm.edit_lastname.$error.required">*</i></label>
+                                        <input type="text" name="edit_lastname" ng-model="edit_lastname" class="form-control capitalize" placeholder="Last name" ng-disabled="isSaving" required/>
+                                    </div>
+                                    <!-- /.Last Name -->
+                                    <!-- Suffix -->
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="edit_suffix">Suffix:</label>
+                                        <select style="width:100%;padding:5px;" class="form-control select2" ng-disabled="isSaving" name="edit_suffix" select2 ng-model="edit_suffix">
+                                            <option value="">-- SELECT --</option>
+                                            <option value="Jr">Jr</option>
+                                            <option value="Sr">Sr</option>
+                                            <option value="II">II</option>
+                                            <option value="III">III</option>
+                                            <option value="IV">IV</option>
+                                        </select>
+                                    </div>
+                                    <!-- /.Suffix -->
+                                </div>
+                                <!--Present Address-->
+                                <div class = "col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-12">
+                                        <label class="control-label" for="edit_present_address">Present Address:<i style="color:#f90000" ng-show="editmyForm.edit_present_address.$error.required">*</i></label>
+                                        <input type="text" name="edit_present_address" ng-model="edit_present_address" class="form-control capitalize" placeholder="Present Address" ng-disabled="isSaving" required/>
+                                    </div>
+                                </div>
+                                <!--Provincial Address-->
+                                <div class = "col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-12">
+                                        <label class="control-label" for="edit_provincial_address">Provincial Address:<i style="color:#f90000" ng-show="editmyForm.edit_provincial_address.$error.required">*</i></label>
+                                        <input type="text" name="edit_provincial_address" ng-model="edit_provincial_address" class="form-control capitalize" placeholder="Provincial Address" ng-disabled="isSaving" required/>
+                                    </div>
+                                </div>
+                                <!-- Gender Birthdate Age Birthplace -->
+                                <div class = "col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-3">
+                                        <label class="control-label" for="edit_gender">Gender:<i style="color:#f90000" ng-show="editmyForm.edit_gender.$error.required">*</i></label>
+                                        <select style="width:100%;padding:5px;" class="form-control select2" ng-disabled="isSaving" name="edit_gender" select2 ng-model="edit_gender" required >
+                                            <option value="Male">MALE</option>
+                                            <option value="Female">FEMALE</option>
+                                        </select>
+                                    </div>
+                                    <!-- /.Gender -->
+                                    <!-- Birthdate -->
+                                    <div class="col-sm-3">
+                                        <label class="control-label birthdate" for="edit_birthdate">Birthdate:<i style="color:#f90000" ng-show="editmyForm.edit_birthdate.$error.required">*</i></label>
+                                        <input type="text" name="edit_birthdate" ng-model="edit_birthdate" class="form-control" placeholder="Birthdate" readonly="readonly" ng-disabled="isSaving" style="background:#fff;" datepicker required/>
+                                    </div>
+                                    <!-- /.Birthdate -->
+                                    <!-- Age -->
+                                    <div class="col-sm-3">
+                                        <label class="control-label age" for="edit_age">Age:<i style="color:#f90000" ng-show="editmyForm.edit_age.$error.required">*</i></label>
+                                        <input type="text" name="edit_age" ng-model="edit_age" class="form-control" oninput="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="Age" ng-disabled="isSaving" style="background:#fff;" required/>
+                                    </div>
+                                    <!-- /.Age -->
+                                    <!-- Birthplace -->
+                                    <div class="col-sm-3">
+                                        <label class="control-label" for="edit_birthplace">Birthplace:<i style="color:#f90000" ng-show="editmyForm.edit_birthplace.$error.required">*</i></label>
+                                        <input type="text" maxlength="30" id="edit_birthplace" ng-model="edit_birthplace" name="edit_birthplace" class="form-control capitalize" placeholder="Birthplace" ng-disabled="isSaving" required/>
+                                    </div>
+                                    <!-- /.Birthplace -->
+                                </div>
+                                <!-- Emergency to Notify/ Relationship-->
+                                <div class ="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="edit_emergency">Incase of Emergency Notify:<i style="color:#f90000" ng-show="editmyForm.edit_emergency.$error.required">*</i></label>
+                                        <input type="text" name="edit_emergency" ng-model="edit_emergency" class="form-control capitalize" placeholder="Incase of Emergency Notify" ng-disabled="isSaving" required/>
+                                    </div>
+                                    <!-- /.Emergency -->
+                                    <!-- Relationship -->
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="edit_relationship">Relationship:<i style="color:#f90000" ng-show="editmyForm.edit_relationship.$error.required">*</i></label>
+                                        <input type="text" name="edit_relationship" ng-model="edit_relationship" class="form-control capitalize" placeholder="Relationship" ng-disabled="isSaving" required/>
+                                    </div>
+                                    <!-- /.Relationship -->
+                                </div>
+                                <!-- Address /Contact Number-->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="edit_emeradd">Address:<i style="color:#f90000" ng-show="editmyForm.edit_emeradd.$error.required">*</i></label>
+                                        <input type="text" name="edit_emeradd" ng-model="edit_emeradd" class="form-control capitalize" placeholder="Address" ng-disabled="isSaving" required/>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="edit_emernum">Cellphone Number:<i style="color:#f90000" ng-show="editmyForm.edit_emernum.$error.required">*</i></label>
+                                        <input type="text" name="edit_emernum" ng-model="edit_emernum" class="form-control" placeholder="Cellphone Number" ng-disabled="isSaving" oninput="this.value=this.value.replace(/[^0-9]/g,'');" required/>
+                                    </div>
+                                </div>
+                                <!-- Height/Weight/Cp Num-->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-3">
+                                        <label class="control-label" for="edit_height">Height:</label>
+                                        <input type="text" name="edit_height" ng-model="edit_height" class="form-control" placeholder="Height" ng-disabled="isSaving"/>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="control-label" for="edit_weight">Weight:</label>
+                                        <input type="text" name="edit_weight" ng-model="edit_weight" class="form-control" placeholder="Weight" ng-disabled="isSaving"/>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="edit_cpnum">Cellphone Number:<i style="color:#f90000" ng-show="editmyForm.edit_cpnum.$error.required">*</i></label>
+                                        <input type="text" name="edit_cpnum" ng-model="edit_cpnum" class="form-control" maxlength="11" placeholder="Cellphone Number" ng-disabled="isSaving" oninput="this.value=this.value.replace(/[^0-9]/g,'');" required/>
+                                    </div>
+                                </div>
+                                <!--Marital Status / Name of Spouse-->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <!-- Civil Status -->
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="edit_civil_status">Civil Status:<i style="color:#f90000" ng-show="editmyForm.edit_civil_status.$error.required">*</i></label>
+                                        <select style="width:100%;padding:5px;" class="form-control select2" ng-disabled="isSaving"  select2 name="edit_civil_status" ng-model="edit_civil_status" required >
+                                            <option value="Single">SINGLE</option>
+                                            <option value="Married">MARRIED</option>
+                                            <option value="Widowed">WIDOWED</option>
+                                            <option value="Separated">SEPARATED</option>
+                                        </select>
+                                    </div> 
+                                    <!-- /.Civil Status -->
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="edit_spouse">Name of Spouse:</label>
+                                        <input type="text" name="edit_spouse" ng-model="edit_spouse" class="form-control capitalize" placeholder="Name of Spouse" ng-disabled="isSaving"/>
+                                    </div>
+                                </div>
+                                <!--Address-->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-12">
+                                        <label class="control-label" for="edit_spouse_add">Address:</label>
+                                        <input type="text" name="edit_spouse_add" ng-model="edit_spouse_add" class="form-control capitalize" placeholder="Address" ng-disabled="isSaving"/>
+                                    </div>
+                                </div>
+                                <!--No of Person Supported / Relationship-->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="edit_supported">No. of Person Supported By You:</label>
+                                        <input type="text" name="edit_supported" ng-model="edit_supported" class="form-control" placeholder="No. of Person Supported By You" ng-disabled="isSaving"/>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="edit_supp_rel">Relationship:</label>
+                                        <input type="text" name="edit_supp_rel" ng-model="edit_supp_rel" class="form-control capitalize" placeholder="Relationship" ng-disabled="isSaving"/>
+                                    </div>
+                                </div>
+                                <!--Kind of work / Salary Exp / Introduced By-->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-4">
+                                        <label class="control-label" for="edit_work_desire">Kind of Work Desire:</label>
+                                        <input type="text" name="edit_work_desire" ng-model="edit_work_desire" class="form-control capitalize" placeholder="Kind of Work Desire" ng-disabled="isSaving"/>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="control-label" for="edit_sal_exp">Salary Expected:<i style="color:#f90000" ng-show="editmyForm.edit_sal_exp.$error.required">*</i></label>
+                                        <input type="text" name="edit_sal_exp" ng-model="edit_sal_exp" class="form-control" number-float step="0.01" placeholder="Salary Expected" ng-disabled="isSaving" number-only required/>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="control-label" for="edit_intro">Introduced By:</label>
+                                        <input type="text" name="edit_intro" ng-model="edit_intro" class="form-control capitalize" placeholder="Introduced By" ng-disabled="isSaving"/>
+                                    </div>
+                                </div>
+                                <!--Favorite Hobby-->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-12">
+                                        <label class="control-label" for="edit_hob_rec">What Is Your Favorite Hobby or Recreation?:</label>
+                                        <input type="text" name="edit_hob_rec" ng-model="edit_hob_rec" class="form-control capitalize" placeholder="What Is Your Favorite Hobby or Recreation?" ng-disabled="isSaving"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" style="margin-top:20px; font-size:20px; text-align:center;">
+                                        <b>SCHOOL RECORDS</b>
+                                </div>
+                                <!--School Records-->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                            <th></th>
+                                            <th style ="text-align: center;" >Name of School</th>
+                                            <th style ="text-align: center;">Year Graduated</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>                                  
+                                                    <b style = "font-size:15px;">Elementary:</b>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="edit_elem_scho" ng-model="edit_elem_scho" class="form-control col-sm-4 capitalize" placeholder="Name of School" ng-disabled="isSaving" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="edit_elem_year" ng-model="edit_elem_year" class="form-control col-sm-4" placeholder="Year Graduated" ng-disabled="isSaving"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>                                  
+                                                    <b style = "font-size:15px;">High School:</b>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="edit_high_scho" ng-model="edit_high_scho" class="form-control col-sm-4 capitalize" placeholder="Name of School" ng-disabled="isSaving" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="edit_high_year" ng-model="edit_high_year" class="form-control col-sm-4" placeholder="Year Graduated" ng-disabled="isSaving"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>                                  
+                                                    <b style = "font-size:15px;">College/University:</b>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="edit_coll_scho" ng-model="edit_coll_scho" class="form-control col-sm-4 capitalize" placeholder="Name of School" ng-disabled="isSaving"/>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="edit_coll_year" ng-model="edit_coll_year" class="form-control col-sm-4" placeholder="Year Graduated" ng-disabled="isSaving"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>                                  
+                                                    <b style = "font-size:15px;">Degree Finished:</b>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="edit_deg_scho" ng-model="edit_deg_scho" class="form-control col-sm-4 capitalize" placeholder="Name of School" ng-disabled="isSaving"/>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="edit_deg_year" ng-model="edit_deg_year" class="form-control col-sm-4" placeholder="Year Graduated" ng-disabled="isSaving"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>                                  
+                                                    <b style = "font-size:15px;">Vocational:</b>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="edit_vo_scho" ng-model="edit_vo_scho" class="form-control col-sm-4 capitalize" placeholder="Name of School" ng-disabled="isSaving"/>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="edit_vo_year" ng-model="edit_vo_year" class="form-control col-sm-4" placeholder="Year Graduated" ng-disabled="isSaving"/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <div class="col-md-12" style="margin-top:20px; font-size:20px; text-align:center;">
+                                        <b>APPLICANTS WORK EXPERIENCE</b>
+                                </div>
+                                <!--Previous Employer-->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="edit_prev_emp">Previous Employer:</label>
+                                        <input type="text" name="edit_prev_emp" ng-model="edit_prev_emp" class="form-control capitalize" placeholder="Previous Employer" ng-disabled="isSaving"/>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="edit_prev_add">Address:</label>
+                                        <input type="text" name="edit_prev_add" ng-model="edit_prev_add" class="form-control capitalize" placeholder="Address" ng-disabled="isSaving" />
+                                    </div>
+                                </div>
+                                <!-- Date of Employment -->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-4">
+                                        <label class="control-label" for="edit_from">Date of Employment From:</label>
+                                        <input type="text" name="edit_from" ng-model="edit_from" class="form-control" placeholder="From" readonly="readonly" ng-disabled="isSaving" style="background:#fff;" datepicker />
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="control-label" for="edit_to">To:</label>
+                                        <input type="text" name="edit_to" ng-model="edit_to" class="form-control" placeholder="To" readonly="readonly" ng-disabled="isSaving" style="background:#fff;" datepicker/>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="control-label" for="edit_salar">Salary:</label>
+                                        <input type="text" name="edit_salar" ng-model="edit_salar" class="form-control" number-float step="0.01" placeholder="Salary" ng-disabled="isSaving" number-only />
+                                    </div>
+                                </div>
+                                    <!-- Nature of Work Done -->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-12">
+                                        <label class="control-label" for="edit_work_done">Nature of Work Done:</label>
+                                        <input type="text" name="edit_work_done" ng-model="edit_work_done" class="form-control capitalize" placeholder="Nature of Work Done"  ng-disabled="isSaving"/>
+                                    </div>
+                                </div>
+                                <!-- Reason for Leaving -->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-12">
+                                        <label class="control-label" for="edit_reas_leav">Reason for Leaving:</label>
+                                        <input type="text" name="edit_reas_leav" ng-model="edit_reas_leav" class="form-control capitalize" placeholder="Reason for Leaving"  ng-disabled="isSaving"/>
+                                    </div>
+                                </div>
+                                <!-- SSS/ Philhealth/ Pagibig / Tax -->
+                                <div class="col-md-12" style="margin-top:10px">
+                                    <div class="col-sm-3">
+                                        <label class="control-label" for="edit_sss">SSS ID No:</label>
+                                        <input type="text" name="edit_sss" id="edit_sss" ng-model="edit_sss" class="form-control" placeholder="SSS ID No."  ng-disabled="isSaving" number-only maxlength="10"/>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="control-label" for="edit_philhealth">Philhealth No:</label>
+                                        <input type="text" name="edit_philhealth" id="edit_philhealth" ng-model="edit_philhealth" class="form-control" placeholder="Philhealth No."  ng-disabled="isSaving" number-only maxlength="12"/>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="control-label" for="edit_pagibig">Pagibig No:</label>
+                                        <input type="text" name="edit_pagibig" id="edit_pagibig" ng-model="edit_pagibig" class="form-control" placeholder="Pagibig No."  ng-disabled="isSaving" number-only maxlength="12"/>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="control-label" for="edit_tax">Tax Identification No:</label>
+                                        <input type="text" name="edit_tax" id="edit_tax" ng-model="edit_tax" class="form-control" placeholder="Tax Identification No."  ng-disabled="isSaving" number-only maxlength="12"/>
+                                    </div>
+                                </div>
+                                <!-- Date Hire/ Status -->
+                                <div class = "col-md-12" style="margin-top:10px">
+                                    <!-- Date Hired -->
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="edit_date_hired">Date Hired:</label>
+                                        <input type="text" name="edit_date_hired" ng-model="edit_date_hired" class="form-control" placeholder="Date Hired" readonly="readonly" ng-disabled="isSaving" style="background:#fff;" datepicker/>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="control-label" for="edit_status">Status:</label>
+                                        <select style="width:100%;padding:5px;" class="form-control select2" ng-disabled="isSaving" name="edit_status" select2 ng-model="edit_status">
+                                            <option value="Applicant">APPLICANT</option>
+                                            <option value="Active">ACTIVE</option>
+                                            <option value="Awol">AWOL</option>
+                                            <option value="Blocked">BLOCKED</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.Div Content -->
+                        </form>
+                    </div>
+                    <!-- row -->
+                </div>
+                <!-- /.Modal Body -->
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-flat btn-danger pull-left" data-dismiss="modal" ng-disabled="isSaving">Close</button>
+                    <button type="submit" class="btn btn-flat btn-primary" ng-disabled="isSaving" ng-click="updateguard(edit_picFile);">Save</button>
+                </div>
+                <!-- /.Modal Footer -->
+            </div>
+            <!-- /.Modal Content -->
+        </div>
+        <!-- /.Modal Dialog -->
+    </div>
+    <!-- /.Modal for EDIT Guard Accounts -->
+
+</div>
+<!-- /.Wrapper -->
+
+
+<!-- CSS -->
+<style rel="stylesheet">
+#guardsList th {
+	background-color: #4CAF50;
+    font-weight: 600;
+}
+#guardsList td {
+	font-size: 12px;
+}
+.capitalize{
+    text-transform:capitalize;
+}
+
+</style>
+<!-- /.CSS -->
+<!-- Javascript -->
+<script type="text/javascript">
+    $('#add_sss').keyup(function(){
+        $(this).val($(this).val().replace(/(\d{2})\-?(\d{7})\-?(\d{1})/,'$1-$2-$3'))
+    });
+    $('#add_philhealth').keyup(function(){
+        $(this).val($(this).val().replace(/(\d{2})\-?(\d{9})\-?(\d{1})/,'$1-$2-$3'))
+    });
+    $('#add_pagibig').keyup(function(){
+        $(this).val($(this).val().replace(/(\d{4})\-?(\d{4})\-?(\d{4})/,'$1-$2-$3'))
+    });
+    $('#add_tax').keyup(function(){
+        $(this).val($(this).val().replace(/(\d{3})\-?(\d{3})\-?(\d{3})\-?(\d{3})\-?/,'$1-$2-$3-$4'))
+    });
+</script>
+<script src="frontend/dependencies/bower_components/function/serverSideDropdown.js"></script>
+<!-- /.Javascript -->

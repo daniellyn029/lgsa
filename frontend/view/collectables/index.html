@@ -1,0 +1,208 @@
+<!-- Wrapper -->
+<div class="wrapper" ng-controller="collectablesController" ng-init="collectables.active();">
+    <spinner name="collectablesSpinner" ng-cloak="">
+        <div class="overlay"></div>
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+        <div class="please-wait">Please wait...</div>
+    </spinner>
+    <!-- Header Template-->
+    <div ng-include="headerTemplate"></div>
+    <!-- /.Header Template-->
+    <!-- Left Navigation Template -->
+    <div ng-include="leftNavigationTemplate"></div>
+    <!-- /.Left Navigation Template -->
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Collectables
+                <small>List</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <a>
+                        <i class="fa fa-copy"></i>
+                        <span>Collectables</span> 
+                    </a>    
+                </li>
+            </ol>
+        </section>
+        <!-- /.Content Header (Page header) -->
+         <!-- Main Content -->
+         <section class="content">
+            <!-- Continue Codes Here -->
+            <!-- Main Box -->
+            <div class="box box-success">
+                <!-- Box Header -->
+                <div class="box-header with-border">
+                    <h3 class="box-title">COL-List</h3>
+                </div>
+                <!-- /.Box Header -->
+                <!-- Box Body -->
+                <div class="box-body">
+                    <!-- Row -->
+                    <div class="row">                             
+                        <div class="col-md-12" ng-init="collectablesList();">
+                            <div class="search-input-wrapper">	  
+                                <div class="btn-toolbar">
+                                    <!-- <button id="btn_refresh_current_new_manila" style="margin-bottom:10px;" class="btn btn-flat btn-danger pull-right btn-sm" ng-click="dtInstance2.reloadData()" title="Refresh">
+                                        <i class="fa fa-refresh fa-lg" style="padding:3px"></i>Refresh
+                                    </button>
+                                    <button title="Search" style="margin-bottom:10px;" class="btn btn-success btn-flat btn-sm pull-right" type="button" data-toggle="modal" data-target="#search_current_manila" ng-click="search_current_manila()">
+                                        <i class="fa fa fa-search fa-lg"></i> Search
+                                    </button>
+                                    <button title="Create Request" style="margin-bottom:10px;" class="btn btn-primary btn-flat btn-sm pull-right" type="button" ng-click="createRequestShow_manila();" data-toggle="modal" data-target="#createRequest_manila">
+                                        <i class="fa fa-plus-circle fa-lg"></i> Create Request
+                                    </button>
+                                    <button style="margin-bottom:10px;" class="btn btn-primary btn-flat btn-sm pull-left" type="button" ng-click="export_current_manila();">
+                                        <i class="fa fa-file-excel-o"></i> Export To Excel
+                                    </button> -->
+                                </div>  
+                                <!-- Datatables -->
+                                <table id="collectablesList" datatable="" dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance4" class="display compact" style="width:100%"></table>
+                                <!-- /.Datatables -->
+                            </div>    
+                        </div>    
+                    </div>
+                    <!-- /.Row -->
+                </div>
+                <!-- /.Box Body -->
+            </div>
+            <!-- /.Main Box -->
+        </section>
+        <!-- /.Main Content -->
+    </div>
+    <!-- /.Content Wrapper. Contains page content -->
+    <!-- Footer Template -->
+    <div ng-include="footerTemplate"></div>
+    <!-- /.Footer Template -->
+
+
+    <!-- Add Collectables -->
+    <div class="modal fade modal-success" data-backdrop="static" id="addCollectables" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="addCollectables" style="overflow: scroll !important;">
+        <!-- Modal Dialog -->
+        <div class="modal-dialog" role="document">
+            <!-- Modal Content -->
+		    <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"><i class="fa fa-pencil-square-o fa-xs"></i> Add Collectables </h4>
+                </div>
+                <!-- /.Modal Header -->
+                <!-- Modal Body -->
+                <div class="modal-body" style="color:#333 !important;background: #ffffff !important">
+                    <!-- Row -->
+                    <div class="row">
+                        <!-- Form -->
+					    <form name="addCollectablesForm" id="addCollectablesForm" novalidate>
+
+                            <div class="col-md-12" style="margin-top:10px">
+                                <!-- Date Collected -->
+                                <div class="col-sm-6">
+                                    <label class="control-label" for="add_date_issued">Date Collected:<i style="color:#f90000" ng-show="myForm.add_date_issued.$error.required">*</i></label>
+                                    <input type="text" name="add_date_issued" ng-model="add_date_issued" class="form-control" placeholder="Date Collected" readonly="readonly" ng-disabled="isSaving" style="background:#fff;" datepicker required/>
+                                </div>
+                                <!-- Amount -->
+                                <div class="col-sm-6">
+                                    <label class="control-label" for="add_amount">Amount:<i style="color:#f90000" ng-show="myForm.add_amount.$error.required">*</i></label>
+                                    <input type="text" id="add_amount" name="add_amount" ng-model="add_amount" class="form-control" placeholder="Amount" ng-disabled="isSaving"  number-float step="0.01" required/>
+                                </div>
+                            </div>
+
+
+                        </form>
+                        <!-- /.Form -->
+                    </div>
+                    <!-- /.Row -->
+                </div>
+                <!-- /.Modal Body -->
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-flat btn-danger pull-left" ng-disabled="isSaving" data-dismiss="modal" data-toggle="modal">Close</button>
+                    <button type="submit" class="btn btn-flat btn-primary" ng-disabled="isSaving" ng-click="addCollectables();">Save</button>
+                </div>
+                <!-- /.Modal Footer --> 
+            </div>
+            <!-- /.Modal Content -->
+        </div>
+        <!-- /.Modal Dialog -->
+    </div>
+    <!-- /.Add Collectables-->
+
+
+    <!-- Logs -->
+    <div class="modal fade modal-success" data-backdrop="static" id="collectibleLogs" data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="collectibleLogs_modal" style="overflow: scroll !important;">
+        <!-- Modal Dialog -->
+	    <div class="modal-dialog modal-lg" role="document">
+            <!-- Modal Content -->
+		    <div class="modal-content">
+                <!-- Modal Header -->
+			    <div class="modal-header">
+                    <h4 class="modal-title"><i class="fa fa-history"></i> Collectible Logs - <span id="collectible_logs_client_name"></span></h4>
+                </div>
+                <!-- /.Modal Header -->
+                <!-- Modal Body -->
+			    <div class="modal-body" style="color:#333 !important;background: #ffffff !important">          
+                    <!-- Row -->
+                    <div class="row">           
+                        <input type="hidden" ng-model="collectibleLogs">                  
+                        <div class="col-md-12">
+                            <div class="search-input-wrapper" ng-init="collectible_logs_list()">                                
+                                <!-- Datatables
+                                <table id="collectible_logs_list" datatable="" dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance17" class="display compact" style="width:100%"></table>
+                                /.Datatables -->
+                            </div>    
+                        </div>    
+                    </div>
+                    <!-- Row -->
+                </div>
+                <!-- /.Modal Body -->
+                <!-- Modal Footer -->
+			    <div class="modal-footer btn-success">
+                    <button type="button" class="btn btn-danger pull-right" data-dismiss="modal" data-toggle="modal">Close</button>
+                </div>
+                <!-- /.Modal Footer -->
+            </div>
+            <!-- /.Modal Content -->    
+        </div>
+        <!-- /.Modal Dialog -->    
+    </div>
+    <!-- /.Logs -->
+
+
+
+
+
+
+
+
+</div>
+<!-- /.Wrapper -->
+
+
+<!-- CSS -->
+<style rel="stylesheet">
+#collectablesList th {
+    background-color: #4CAF50;
+    font-weight: 600;
+}
+#collectablesList td {
+    font-size: 12px;
+}
+#collectible_logs_list th {
+    background-color: #4CAF50;
+    font-weight: 600;
+}
+#collectible_logs_list td {
+    font-size: 12px;
+}
+</style>
+<!-- /.CSS -->
+
+<!-- Javascript -->
+<script type="text/javascript" src="frontend/dependencies/bower_components/function/serverSideDropdown.js"></script>
+<!-- /.Javascript -->
